@@ -7,7 +7,6 @@ public class AgregarPedido extends javax.swing.JInternalFrame {
     
     public AgregarPedido() {
         initComponents();
-        this.setSize(565,410);
         this.setTitle("Agregar Pedido");
     }
 

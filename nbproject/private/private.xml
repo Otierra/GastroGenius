@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/AgregarPedido.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/ReabastecerIngredientes.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/Opciones.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/ActualizarInventario.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/AgregarAlteracion.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/ModificarProducto.java</file>
-            <file>file:/C:/Users/zaidp/OneDrive/Escritorio/3°SEMESTRE/PROGRAMACIÓN%20ORIENTADA%20A%20EVENTOS/Tercer%20parcial/GastroGenius/src/Gestion/ReporteMensual.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/ViewPedido.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/ViewMesas.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/ViewTablaOrdenes.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/MesaPanel.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/Mesa.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Modelo/ModeloPlatilloMenu.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Modelo/ModeloOrden.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/ViewMenu.java</file>
+            <file>file:/C:/Users/alexv/Desktop/GastroGenius/src/Gestion/Vista/ViewOrdenes.java</file>
         </group>
     </open-files>
 </project-private>
