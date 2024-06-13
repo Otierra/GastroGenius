@@ -10,15 +10,14 @@ import java.net.URL;
 public class ViewMesas extends javax.swing.JInternalFrame {
 
     private MesaPanel mesaPanel;
+    private JLabel labelMesaSeleccionada;
 
-   public ViewMesas() {
+    public ViewMesas() {
         initComponents();
         setTitle("Mesas");
 
-        // Crear el panel de mesas (en este caso, círculos)
-        mesaPanel = new MesaPanel();
+        mesaPanel = new MesaPanel(this); // Pasamos una referencia de ViewMesas a MesaPanel
 
-        // Configurar el layout del JInternalFrame
         getContentPane().setLayout(new BorderLayout());
 
         // Agregar las 10 mesas distribuidas uniformemente en dos filas
@@ -37,6 +36,10 @@ public class ViewMesas extends javax.swing.JInternalFrame {
         panelBotones.add(btnNuevaOrden);
         panelBotones.add(btnNuevoPedido);
         panelBotones.add(btnCuenta);
+
+        // Crear etiqueta para mostrar la mesa seleccionada
+        labelMesaSeleccionada = new JLabel("Mesa seleccionada: ");
+        getContentPane().add(labelMesaSeleccionada, BorderLayout.NORTH); // Añadir etiqueta arriba de los botones
 
         // Agregar el panel de botones y el panel de mesas al JInternalFrame
         getContentPane().add(panelBotones, BorderLayout.WEST); // Añadir panel de botones a la izquierda
@@ -97,7 +100,10 @@ public class ViewMesas extends javax.swing.JInternalFrame {
             mesaPanel.agregarMesa(x, y, diameter, String.valueOf(i + 1));
         }
     }
-
+    
+    public void actualizarLabel(String idMesa) {
+        labelMesaSeleccionada.setText("Mesa seleccionada: " + idMesa);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
