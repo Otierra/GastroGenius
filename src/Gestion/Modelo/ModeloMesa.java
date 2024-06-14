@@ -6,8 +6,8 @@ package Gestion.Modelo;
 
 /**
  *
- * @author zaidp
+ * @author alexv
  */
-public class Mesa {
+public class ModeloMesa {
     
 }

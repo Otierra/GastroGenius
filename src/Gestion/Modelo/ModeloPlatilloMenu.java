@@ -5,14 +5,18 @@ public class ModeloPlatilloMenu {
     private int id;
     private String descripcion;
     private double precio;
-    private String categoria; // Agregando una categoría para el platillo, opcional
+    private String categoria; // Categoría del platillo
+    private boolean esComida; // Indica si es comida (true) o bebida (false)
+    private int tiempoDePreparacion; // Tiempo de preparación en minutos
 
     // Constructor
-    public ModeloPlatilloMenu(int id, String descripcion, double precio, String categoria) {
+    public ModeloPlatilloMenu(int id, String descripcion, double precio, String categoria, boolean esComida, int tiempoDePreparacion) {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
         this.categoria = categoria;
+        this.esComida = esComida;
+        this.tiempoDePreparacion = tiempoDePreparacion;
     }
 
     // Getters y setters
@@ -48,6 +52,22 @@ public class ModeloPlatilloMenu {
         this.categoria = categoria;
     }
 
+    public boolean isEsComida() {
+        return esComida;
+    }
+
+    public void setEsComida(boolean esComida) {
+        this.esComida = esComida;
+    }
+
+    public int getTiempoDePreparacion() {
+        return tiempoDePreparacion;
+    }
+
+    public void setTiempoDePreparacion(int tiempoDePreparacion) {
+        this.tiempoDePreparacion = tiempoDePreparacion;
+    }
+
     // Método toString para representación textual del platillo
     @Override
     public String toString() {
@@ -56,6 +76,8 @@ public class ModeloPlatilloMenu {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", categoria='" + categoria + '\'' +
+                ", esComida=" + esComida +
+                ", tiempoDePreparacion=" + tiempoDePreparacion +
                 '}';
     }
 }

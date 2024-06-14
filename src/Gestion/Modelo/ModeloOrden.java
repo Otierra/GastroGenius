@@ -7,13 +7,17 @@ import java.util.List;
 public class ModeloOrden {
     private int numeroOrden;
     private int mesaId;
-    private List<ModeloPlatilloMenu> platillos;
+    private List<ModeloPedido> pedidos;
+    private String estado; // Estado de la orden (en preparación, sin preparar, listo, entregado)
+    private boolean cancelado; // Indica si la orden está cancelada
 
     // Constructor
-    public ModeloOrden(int numeroOrden, int mesaId) {
+    public ModeloOrden(int numeroOrden, int mesaId, String estado) {
         this.numeroOrden = numeroOrden;
         this.mesaId = mesaId;
-        this.platillos = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
+        this.estado = estado;
+        this.cancelado = false;
     }
 
     // Getters y setters
@@ -33,27 +37,44 @@ public class ModeloOrden {
         this.mesaId = mesaId;
     }
 
-    public List<ModeloPlatilloMenu> getPlatillos() {
-        return platillos;
+    public List<ModeloPedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setPlatillos(List<ModeloPlatilloMenu> platillos) {
-        this.platillos = platillos;
+    public void setPedidos(List<ModeloPedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
-    // Método para agregar un platillo a la orden
-    public void agregarPlatillo(ModeloPlatilloMenu platillo) {
-        platillos.add(platillo);
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+
+    // Método para agregar un pedido a la orden
+    public void agregarPedido(ModeloPedido pedido) {
+        pedidos.add(pedido);
     }
 
     // Método toString para representación textual de la orden
     @Override
     public String toString() {
-        return "Orden{" +
+        return "ModeloOrden{" +
                 "numeroOrden=" + numeroOrden +
                 ", mesaId=" + mesaId +
-                ", platillos=" + platillos +
+                ", pedidos=" + pedidos +
+                ", estado='" + estado + '\'' +
+                ", cancelado=" + cancelado +
                 '}';
     }
 }
-

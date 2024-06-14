@@ -36,7 +36,7 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuMesa = new javax.swing.JMenu();
         jMenuOrden = new javax.swing.JMenu();
         jMenuInventario = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuCarta = new javax.swing.JMenu();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -71,8 +71,13 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuInventario.setText("Inventario");
         jMenuBar1.add(jMenuInventario);
 
-        jMenu1.setText("Menu");
-        jMenuBar1.add(jMenu1);
+        jMenuCarta.setText("Menu");
+        jMenuCarta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuCartaMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuCarta);
 
         setJMenuBar(jMenuBar1);
 
@@ -90,6 +95,18 @@ public class ViewMenu extends javax.swing.JFrame {
         viewMesas.setLocation(x, y); // Centrar ViewMesas en el desktopPane
         viewMesas.setVisible(true);
     }//GEN-LAST:event_jMenuMesaMouseClicked
+
+    private void jMenuCartaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCartaMouseClicked
+         ViewTableMenu viewCarta = new ViewTableMenu();
+        jDesktopPane_opiciones.add(viewCarta);
+        viewCarta.setSize(800, 500); // Establecer el tamaño de ViewMesas
+        Dimension desktopSize = jDesktopPane_opiciones.getSize();
+        Dimension internalFrameSize = viewCarta.getSize();
+        int x = (desktopSize.width - internalFrameSize.width) / 2;
+        int y = (desktopSize.height - internalFrameSize.height) / 2;
+        viewCarta.setLocation(x, y); // Centrar ViewMesas en el desktopPane
+        viewCarta.setVisible(true);
+    }//GEN-LAST:event_jMenuCartaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -114,8 +131,8 @@ public class ViewMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JDesktopPane jDesktopPane_opiciones;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCarta;
     private javax.swing.JMenu jMenuInventario;
     private javax.swing.JMenu jMenuMesa;
     private javax.swing.JMenu jMenuOrden;
