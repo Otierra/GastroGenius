@@ -29,12 +29,16 @@ public class ViewMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jDesktopPane_opiciones = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuMesa = new javax.swing.JMenu();
         jMenuOrden = new javax.swing.JMenu();
         jMenuInventario = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+
+        jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 51));
@@ -66,6 +70,9 @@ public class ViewMenu extends javax.swing.JFrame {
 
         jMenuInventario.setText("Inventario");
         jMenuBar1.add(jMenuInventario);
+
+        jMenu1.setText("Menu");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -105,7 +112,9 @@ public class ViewMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JDesktopPane jDesktopPane_opiciones;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuInventario;
     private javax.swing.JMenu jMenuMesa;
