@@ -19,6 +19,14 @@ public class ModeloPlatilloMenu {
         this.tiempoDePreparacion = tiempoDePreparacion;
     }
 
+    public ModeloPlatilloMenu(String descripcion, double precio, String categoria, boolean esComida, int tiempoDePreparacion) {
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.esComida = esComida;
+        this.tiempoDePreparacion = tiempoDePreparacion;
+    }
+
     // Getters y setters
     public int getId() {
         return id;
