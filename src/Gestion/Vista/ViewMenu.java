@@ -101,6 +101,8 @@ public class ViewMenu extends javax.swing.JFrame {
         int y = (desktopSize.height - internalFrameSize.height) / 2;
         viewMesas.setLocation(x, y); // Centrar ViewMesas en el desktopPane
         viewMesas.setVisible(true);
+        
+        viewMesas.setJDesktopPane(jDesktopPane_opiciones);
     }//GEN-LAST:event_jMenuMesaMouseClicked
 
     private void jMenuCartaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCartaMouseClicked

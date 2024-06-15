@@ -47,7 +47,7 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
         // Obtener tipo de platillo (comida o bebida)
         if (jRadioButtonComida.isSelected() == true){
             esComida = true;
-        }else if (jRadioButtonComida.isSelected() == true){
+        }else if (jRadioButtonBebida.isSelected() == true){
             esComida = false;
         }
         // Obtener tiempo de preparación

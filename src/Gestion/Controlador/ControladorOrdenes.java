@@ -24,5 +24,4 @@ public class ControladorOrdenes {
         }
         return -1; // Si no se encuentra ninguna orden en estado "Tomando Orden"
     }
-    
 }

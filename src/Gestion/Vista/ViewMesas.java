@@ -20,6 +20,11 @@ package Gestion.Vista;
         private JButton btnNuevoPedido;
         private JButton btnCuenta;
         private int idMesaSeleccionada = -1;
+        private JDesktopPane jDesktopPane_opiciones;
+        
+        public void setJDesktopPane(JDesktopPane jDesktopPane_opiciones) {
+            this.jDesktopPane_opiciones = jDesktopPane_opiciones;
+        }
         
         public ViewMesas() {
         initComponents();
@@ -80,6 +85,31 @@ package Gestion.Vista;
                     } else {
                         System.out.println("No hay ninguna orden en estado 'Tomando Orden'.");
                     }
+                }
+            }
+        });
+        
+        btnNuevoPedido.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (idMesaSeleccionada != -1) {
+                    // Crear una instancia de ViewPedido
+                    ViewPedido viewPedido = new ViewPedido();
+
+                    // Agregar ViewPedido al JDesktopPane
+                    jDesktopPane_opiciones.add(viewPedido);
+                    viewPedido.setVisible(true); // Hacer visible la ventana de pedido
+
+                    // Centrar ViewPedido dentro de jDesktopPane_opiciones
+                    Dimension desktopSize = jDesktopPane_opiciones.getSize();
+                    Dimension internalFrameSize = viewPedido.getSize();
+                    int x = (desktopSize.width - internalFrameSize.width) / 2;
+                    int y = (desktopSize.height - internalFrameSize.height) / 2;
+                    viewPedido.setLocation(x, y);
+
+                    // Opcional: Puedes configurar más propiedades de ViewPedido aquí si es necesario
+                } else {
+                    System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");
                 }
             }
         });
