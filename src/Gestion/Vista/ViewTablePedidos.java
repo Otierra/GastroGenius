@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 public class ViewTablePedidos extends javax.swing.JInternalFrame {
 
@@ -40,8 +41,7 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = jTablePedido.getSelectedRow();
                 if (selectedRow != -1) {
-                    int idPlatillo = (int) jTablePedido.getValueAt(selectedRow, 0); 
-                    MesaId = (int) jTablePedido.getValueAt(selectedRow, 1); 
+                    int idPlatillo = (int) jTablePedido.getValueAt(selectedRow, 0);  
                     jLabelPedido.setText("Platillo: " + idPlatillo);
                     PedidoId = idPlatillo;
                 }
@@ -167,32 +167,52 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
 
     private void jButtonPedidoAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoAgregarActionPerformed
         if (MesaId != -1) {
-                    // Crear una instancia de ViewPedido
-                    ViewPedido viewPedido = new ViewPedido(OrderId, MesaId);
+            // Crear una instancia de ViewPedido
+            ViewPedido viewPedido = new ViewPedido(OrderId, MesaId);
 
-                    // Agregar ViewPedido al JDesktopPane
-                    jDesktopPane_opiciones.add(viewPedido);
-                    viewPedido.setVisible(true); // Hacer visible la ventana de pedido
+            // Agregar ViewPedido al JDesktopPane
+            jDesktopPane_opiciones.add(viewPedido);
+            viewPedido.setVisible(true); // Hacer visible la ventana de pedido
 
-                    // Centrar ViewPedido dentro de jDesktopPane_opiciones
-                    Dimension desktopSize = jDesktopPane_opiciones.getSize();
-                    Dimension internalFrameSize = viewPedido.getSize();
-                    int x = (desktopSize.width - internalFrameSize.width) / 2;
-                    int y = (desktopSize.height - internalFrameSize.height) / 2;
-                    viewPedido.setLocation(x, y);
-
-                    // Opcional: Puedes configurar más propiedades de ViewPedido aquí si es necesario
-                } else {
-                    System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");
-                }
+             // Centrar ViewPedido dentro de jDesktopPane_opiciones
+            Dimension desktopSize = jDesktopPane_opiciones.getSize();
+            Dimension internalFrameSize = viewPedido.getSize();
+            int x = (desktopSize.width - internalFrameSize.width) / 2;
+            int y = (desktopSize.height - internalFrameSize.height) / 2;
+            viewPedido.setLocation(x, y);
+        } else {
+            System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");
+        }
     }//GEN-LAST:event_jButtonPedidoAgregarActionPerformed
 
     private void jButtonPedidoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoModificarActionPerformed
-        // TODO add your handling code here:
+        if (MesaId != -1) {
+            // Crear una instancia de ViewPedido
+            ViewPedido viewPedido = new ViewPedido(OrderId, MesaId,PedidoId);
+
+            // Agregar ViewPedido al JDesktopPane
+            jDesktopPane_opiciones.add(viewPedido);
+            viewPedido.setVisible(true); // Hacer visible la ventana de pedido
+
+             // Centrar ViewPedido dentro de jDesktopPane_opiciones
+            Dimension desktopSize = jDesktopPane_opiciones.getSize();
+            Dimension internalFrameSize = viewPedido.getSize();
+            int x = (desktopSize.width - internalFrameSize.width) / 2;
+            int y = (desktopSize.height - internalFrameSize.height) / 2;
+            viewPedido.setLocation(x, y);
+        } else {
+            System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");
+        }
     }//GEN-LAST:event_jButtonPedidoModificarActionPerformed
 
     private void jButtonPedidoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoCancelarActionPerformed
-        // TODO add your handling code here:
+         int response = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea cancelar el pedido?", "Confirmar Cancelación", JOptionPane.YES_NO_OPTION);
+    
+        if (response == JOptionPane.YES_OPTION) {
+            ControladorOrdenes.cancelarPedidoEnOrden(OrderId, PedidoId);
+        } else {
+            JOptionPane.showMessageDialog(null, "El pedido no ha sido cancelado.");
+        }
     }//GEN-LAST:event_jButtonPedidoCancelarActionPerformed
 
     private void jButtonPedidoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoSalirActionPerformed

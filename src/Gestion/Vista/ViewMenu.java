@@ -32,7 +32,7 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuMesa = new javax.swing.JMenu();
         jMenuOrden = new javax.swing.JMenu();
-        jMenuInventario = new javax.swing.JMenu();
+        jMenuCocina = new javax.swing.JMenu();
         jMenuCarta = new javax.swing.JMenu();
 
         jCheckBox1.setText("jCheckBox1");
@@ -70,13 +70,13 @@ public class ViewMenu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenuOrden);
 
-        jMenuInventario.setText("Inventario");
-        jMenuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuCocina.setText("Cocina");
+        jMenuCocina.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuInventarioMouseClicked(evt);
+                jMenuCocinaMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenuInventario);
+        jMenuBar1.add(jMenuCocina);
 
         jMenuCarta.setText("Menu");
         jMenuCarta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,9 +119,9 @@ public class ViewMenu extends javax.swing.JFrame {
        viewCarta.setJDesktopPane(jDesktopPane_opiciones);
     }//GEN-LAST:event_jMenuCartaMouseClicked
 
-    private void jMenuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuInventarioMouseClicked
+    private void jMenuCocinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCocinaMouseClicked
         
-    }//GEN-LAST:event_jMenuInventarioMouseClicked
+    }//GEN-LAST:event_jMenuCocinaMouseClicked
 
     private void jMenuOrdenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuOrdenMouseClicked
         ViewTablaOrdenes viewOrdenesTable = new ViewTablaOrdenes();
@@ -162,7 +162,7 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane_opiciones;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCarta;
-    private javax.swing.JMenu jMenuInventario;
+    private javax.swing.JMenu jMenuCocina;
     private javax.swing.JMenu jMenuMesa;
     private javax.swing.JMenu jMenuOrden;
     private javax.swing.JPanel jPanel2;

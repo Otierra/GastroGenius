@@ -61,7 +61,7 @@ public class GestorOrdenes {
                     ultimoId = pedido.getIdPlatillo();
                 }
             }
-            return ultimoId;
+            return ultimoId + 1;
         }
     }
      

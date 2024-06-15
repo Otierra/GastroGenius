@@ -16,11 +16,13 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     private List<ModeloPedido> pedidos;
     private String platillo;
     private boolean cancelado;
+    private boolean isAgregar;
     private String cambios;
     
     public ViewPedido(int OrderID, int MesaId) {
         this.OrderID = OrderID;
         this.MesaID = MesaId;
+        isAgregar = true;
         initComponents();
         jTextOrden.setText(String.valueOf(OrderID));
         jTextOrden.setEditable(false);
@@ -30,6 +32,32 @@ public class ViewPedido extends javax.swing.JInternalFrame {
         ModeloPlatilloMenu[] platillosComida = GestorPlatillos.obtenerPlatillosComida();
         llenarComboBox(platillosComida);
         
+    }
+    
+    public ViewPedido(int OrderID, int MesaId, int PedidoID) {
+        this.OrderID = OrderID;
+        this.MesaID = MesaId;
+        this.PedidoID = PedidoID;
+        isAgregar = false;
+        initComponents();
+        jTextOrden.setText(String.valueOf(OrderID));
+        jTextOrden.setEditable(false);
+
+        pedidos = ControladorOrdenes.obtenerPedidosDeOrden(OrderID);
+        ModeloPedido pedido = ControladorOrdenes.obtenerPedidoPorIdPlatillo(pedidos, PedidoID);
+        if (pedido != null) {
+            jTextAreaCambios.setText(pedido.getAlteraciones());
+            ModeloPlatilloMenu[] platillosComida = GestorPlatillos.obtenerPlatillosComida();
+            ModeloPlatilloMenu[] platillosBebida = GestorPlatillos.obtenerPlatillosBebida();
+            if (esComida(pedido.getNombrePlatillo(), platillosComida)) {
+                jRadioComida.setSelected(true);
+                llenarComboBoxComida();
+            } else if (esBebida(pedido.getNombrePlatillo(), platillosBebida)) {
+                jRadioBebida.setSelected(true);
+                llenarComboBoxBebida();
+            }
+            jComboBoxPlatillo.setSelectedItem(pedido.getNombrePlatillo());
+        }
     }
 
     private void llenarComboBoxComida() {
@@ -49,6 +77,23 @@ public class ViewPedido extends javax.swing.JInternalFrame {
         }
     }
     
+    private boolean esComida(String nombrePlatillo, ModeloPlatilloMenu[] platillosComida) {
+        for (ModeloPlatilloMenu platillo : platillosComida) {
+            if (platillo.getDescripcion().equals(nombrePlatillo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean esBebida(String nombrePlatillo, ModeloPlatilloMenu[] platillosBebida) {
+        for (ModeloPlatilloMenu platillo : platillosBebida) {
+            if (platillo.getDescripcion().equals(nombrePlatillo)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -195,8 +240,14 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     private void jButtonGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardar1ActionPerformed
         cambios = jTextAreaCambios.getText();
         platillo = (String) jComboBoxPlatillo.getSelectedItem();
-        pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, platillo, cambios);
-        ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
+        
+        if(isAgregar){
+            pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, platillo, cambios);
+            ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
+        }
+        else{
+            ControladorOrdenes.modificarPedidoEnOrden(OrderID, PedidoID, platillo, cambios);
+        }
     }//GEN-LAST:event_jButtonGuardar1ActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed

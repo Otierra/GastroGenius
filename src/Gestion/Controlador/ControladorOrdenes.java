@@ -4,6 +4,7 @@ import Gestion.Modelo.ModeloOrden;
 import Gestion.Modelo.ModeloPedido;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ControladorOrdenes {
 
@@ -38,6 +39,15 @@ public class ControladorOrdenes {
         }
     }
     
+    public static ModeloPedido obtenerPedidoPorIdPlatillo(List<ModeloPedido> listaPedidos, int idPlatillo) {
+        for (ModeloPedido pedido : listaPedidos) {
+            if (pedido.getIdPlatillo() == idPlatillo) {
+                return pedido;
+            }
+        }
+        return null; // Si no se encuentra el pedido con el idPlatillo especificado
+    }
+    
     public static List<ModeloPedido> agregarPedidoALista(List<ModeloPedido> listaPedidos, String nombrePlatillo, String alteraciones) {
         // Obtener el último ID de platillo en la lista actual
         int ultimoIdPlatillo = GestorOrdenes.obtenerUltimoIdPlatillo(listaPedidos);
@@ -62,6 +72,55 @@ public class ControladorOrdenes {
             System.out.println("Lista de pedidos actualizada para la orden con idMesa " + idMesa + " e idOrden " + idOrden);
         } else {
             System.out.println("No se encontró la orden con idMesa " + idMesa + " e idOrden " + idOrden);
+        }
+    }
+    
+    public static void modificarPedidoEnOrden(int orderID, int pedidoID, String nombrePlatillo, String alteraciones) {
+    // Obtener la orden por su número de orden
+    ModeloOrden orden = GestorOrdenes.obtenerOrdenPorNumero(orderID);
+    
+    if (orden != null) {
+        // Obtener la lista de pedidos de la orden
+        List<ModeloPedido> pedidos = orden.getPedidos();
+        
+        // Buscar y modificar el pedido que concuerde con el pedidoID
+        for (int i = 0; i < pedidos.size(); i++) {
+            ModeloPedido pedido = pedidos.get(i);
+            if (pedido.getIdPlatillo() == pedidoID) {
+                // Crear un nuevo pedido con los datos actualizados
+                ModeloPedido pedidoModificado = new ModeloPedido(pedidoID, nombrePlatillo, alteraciones, pedido.isCancelado());
+                
+                // Sustituir el pedido en la lista
+                pedidos.set(i, pedidoModificado);
+                System.out.println("Pedido actualizado en la lista de pedidos.");
+                
+                // Actualizar la lista de pedidos en la orden
+                orden.setPedidos(pedidos);
+                
+                // Confirmar que la orden ha sido actualizada
+                System.out.println("Lista de pedidos actualizada para la orden con idOrden " + orderID);
+                return;
+            }
+        }
+        System.out.println("No se encontró el pedido con idPlatillo " + pedidoID + " en la orden con idOrden " + orderID);
+    } else {
+        System.out.println("No se encontró la orden con número " + orderID);
+    }
+}
+    
+    public static void cancelarPedidoEnOrden(int idOrden, int idPlatillo) {
+        ModeloOrden orden = GestorOrdenes.obtenerOrdenPorNumero(idOrden);
+        
+        if (orden != null) {
+            List<ModeloPedido> pedidos = orden.getPedidos();
+            for (ModeloPedido pedido : pedidos) {
+                if (pedido.getIdPlatillo() == idPlatillo) {
+                    pedido.setCancelado(true);
+                    JOptionPane.showMessageDialog(null, "Pedido cancelado.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la orden con número " + idOrden);
         }
     }
     
