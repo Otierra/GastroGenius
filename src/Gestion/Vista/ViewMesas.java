@@ -65,7 +65,21 @@ package Gestion.Vista;
             public void actionPerformed(ActionEvent e) {
                 if (idMesaSeleccionada != -1) {
                     ControladorOrdenes.asignarMesaAOrden(idMesaSeleccionada);
-                    // Actualizar estado del botón o realizar otras acciones necesarias después de asignar la orden
+                    
+                    int idOrdenTomandoOrden = ControladorOrdenes.obtenerIdOrdenEnTomandoOrden();
+                    if (idOrdenTomandoOrden != -1) {
+                        // Actualizar estado de la mesa seleccionada
+                        GestorMesas.actualizarEstadoMesa(idMesaSeleccionada, idOrdenTomandoOrden, false);
+
+                        // Bloquear el botón "Agregar Orden" y desbloquear los otros dos botones
+                        btnNuevaOrden.setEnabled(false);
+                        btnNuevoPedido.setEnabled(true);
+                        btnCuenta.setEnabled(true);
+
+                        // Actualizar estado del botón u otras acciones necesarias después de asignar la orden
+                    } else {
+                        System.out.println("No hay ninguna orden en estado 'Tomando Orden'.");
+                    }
                 }
             }
         });

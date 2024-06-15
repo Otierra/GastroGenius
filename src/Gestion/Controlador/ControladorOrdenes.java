@@ -14,4 +14,15 @@ public class ControladorOrdenes {
             }
         }
     }
+    
+    public static int obtenerIdOrdenEnTomandoOrden() {
+        ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
+        for (ModeloOrden orden : ordenes) {
+            if (orden.getEstado().equals("Tomando Orden")) {
+                return orden.getNumeroOrden();
+            }
+        }
+        return -1; // Si no se encuentra ninguna orden en estado "Tomando Orden"
+    }
+    
 }

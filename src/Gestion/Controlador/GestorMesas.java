@@ -19,7 +19,7 @@ public class GestorMesas {
     }
 
     // Método para actualizar el estado de una mesa
-    public static void actualizarMesa(int idMesa, int idOrden, boolean disponible) {
+    public static void actualizarEstadoMesa(int idMesa, int idOrden, boolean disponible) {
         for (int i = 0; i < TAMANO_MAXIMO; i++) {
             if (mesas[i].getIdMesa() == idMesa) {
                 mesas[i].setIdOrden(idOrden);
