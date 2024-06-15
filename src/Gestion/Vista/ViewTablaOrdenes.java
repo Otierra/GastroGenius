@@ -2,8 +2,13 @@ package Gestion.Vista;
 
 import Gestion.Controlador.GestorOrdenes;
 import Gestion.Modelo.ModeloOrden;
+import Gestion.Modelo.ModeloPedido;
 import Gestion.Modelo.OrdenTableModel;
+import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
 
@@ -20,9 +25,23 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     }
     
     private void inicializarTabla() {
-        ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
-        ordenTableModel = new OrdenTableModel(ordenes);
-        jTable1.setModel(ordenTableModel);
+    ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
+    ordenTableModel = new OrdenTableModel(ordenes);
+    jTable1.setModel(ordenTableModel);
+
+    // Agregar listener de selección de fila a la tabla
+    jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) { // Para evitar eventos duplicados
+                    int filaSeleccionada = jTable1.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        int idOrden = (int) jTable1.getValueAt(filaSeleccionada, 0); // Suponiendo que la columna 0 contiene el número de orden
+                        jLabelOrden.setText("Orden: " + idOrden);
+                    }
+                }
+            }
+        });
     }
     
     @SuppressWarnings("unchecked")
@@ -35,6 +54,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnVerPedidos = new javax.swing.JButton();
+        jLabelOrden = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -82,16 +102,20 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabelOrden.setText("Seleccione una Orden");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVerPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVerPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelOrden))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
@@ -110,7 +134,9 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabelOrden)
+                        .addGap(18, 18, 18)
                         .addComponent(btnModificar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)
@@ -134,12 +160,14 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVerPedidos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelOrden;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

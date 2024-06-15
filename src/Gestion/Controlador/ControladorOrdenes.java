@@ -38,7 +38,7 @@ public class ControladorOrdenes {
         }
     }
     
-    public static List<ModeloPedido> agregarPedidoALista(List<ModeloPedido> listaPedidos, int idPedido, String nombrePlatillo, String alteraciones) {
+    public static List<ModeloPedido> agregarPedidoALista(List<ModeloPedido> listaPedidos, String nombrePlatillo, String alteraciones) {
         // Obtener el último ID de platillo en la lista actual
         int ultimoIdPlatillo = GestorOrdenes.obtenerUltimoIdPlatillo(listaPedidos);
 

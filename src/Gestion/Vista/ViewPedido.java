@@ -14,7 +14,7 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     private int MesaID;
     private int PedidoID;
     private List<ModeloPedido> pedidos;
-    private String Paltillo;
+    private String platillo;
     private boolean cancelado;
     private String cambios;
     
@@ -45,7 +45,7 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     private void llenarComboBox(ModeloPlatilloMenu[] platillos) {
         jComboBoxPlatillo.removeAllItems(); // Limpiar el JComboBox
         for (ModeloPlatilloMenu platillo : platillos) {
-            jComboBoxPlatillo.addItem(platillo.getId() + " - " + platillo.getDescripcion());
+            jComboBoxPlatillo.addItem(platillo.getDescripcion());
         }
     }
     
@@ -68,7 +68,6 @@ public class ViewPedido extends javax.swing.JInternalFrame {
         jTextAreaCambios = new javax.swing.JTextArea();
         jButtonGuardar1 = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -123,14 +122,6 @@ public class ViewPedido extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/cancelar.png"))); // NOI18N
-        jButtonCancelar.setText("CANCELAR");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,15 +152,13 @@ public class ViewPedido extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(163, 163, 163))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonGuardar1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSalir)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar)
-                        .addGap(107, 107, 107))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(163, 163, 163))))
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,30 +182,26 @@ public class ViewPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar1)
-                    .addComponent(jButtonSalir)
-                    .addComponent(jButtonCancelar))
-                .addGap(22, 22, 22))
+                    .addComponent(jButtonSalir))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardar1ActionPerformed
-        int PedidoID = GestorOrdenes.obtenerUltimoIdPlatillo(pedidos) + 1;
-        pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, PedidoID, Paltillo, title);
+        cambios = jTextAreaCambios.getText();
+        platillo = (String) jComboBoxPlatillo.getSelectedItem();
+        pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, platillo, cambios);
         ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
     }//GEN-LAST:event_jButtonGuardar1ActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSalirActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jRadioComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioComidaActionPerformed
         if (jRadioComida.isSelected()) {
@@ -234,7 +219,6 @@ public class ViewPedido extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar1;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JComboBox<String> jComboBoxPlatillo;
