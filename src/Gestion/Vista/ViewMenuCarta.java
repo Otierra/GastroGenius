@@ -114,7 +114,7 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Categoria :");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carne", "Pescado", "Vegeteriano", "Picante", "Especial por Temporada", " " }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carne", "Pescado", "Vegeteriano", "Picante", "Especial por Temporada", "Sin Alcohol", "Con Alcohol", " " }));
 
         jLabel5.setText("Tipo de platillo :");
 
@@ -177,7 +177,7 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSliderPreparacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel8)

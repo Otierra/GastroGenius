@@ -63,6 +63,11 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenuMesa);
 
         jMenuOrden.setText("Ordenes");
+        jMenuOrden.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuOrdenMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenuOrden);
 
         jMenuInventario.setText("Inventario");
@@ -99,13 +104,6 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuMesaMouseClicked
 
     private void jMenuCartaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCartaMouseClicked
-        ModeloPlatilloMenu[] platillos = {
-            new ModeloPlatilloMenu(1, "Hamburguesa", 5.99, "Comida", true, 15),
-            new ModeloPlatilloMenu(2, "Coca Cola", 1.99, "Bebida", false, 0),
-            new ModeloPlatilloMenu(3, "Pizza", 7.99, "Comida", true, 20),
-            // Agrega más platillos aquí
-        };
-        
         ViewTableMenu viewCarta = new ViewTableMenu();
         jDesktopPane_opiciones.add(viewCarta);
         viewCarta.setSize(800, 500); 
@@ -120,8 +118,22 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuCartaMouseClicked
 
     private void jMenuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuInventarioMouseClicked
- 
+        
     }//GEN-LAST:event_jMenuInventarioMouseClicked
+
+    private void jMenuOrdenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuOrdenMouseClicked
+        ViewTablaOrdenes viewOrdenesTable = new ViewTablaOrdenes();
+        jDesktopPane_opiciones.add(viewOrdenesTable);
+        viewOrdenesTable.setSize(800, 500); 
+        Dimension desktopSize = jDesktopPane_opiciones.getSize();
+        Dimension internalFrameSize = viewOrdenesTable.getSize();
+        int x = (desktopSize.width - internalFrameSize.width) / 2;
+        int y = (desktopSize.height - internalFrameSize.height) / 2;
+        viewOrdenesTable.setLocation(x, y); 
+        viewOrdenesTable.setVisible(true);
+        
+        viewOrdenesTable.setJDesktopPane(jDesktopPane_opiciones);
+    }//GEN-LAST:event_jMenuOrdenMouseClicked
 
     /**
      * @param args the command line arguments

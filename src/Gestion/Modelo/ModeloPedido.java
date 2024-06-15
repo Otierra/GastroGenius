@@ -2,14 +2,16 @@ package Gestion.Modelo;
 
 public class ModeloPedido {
     private int idOrden;
-    private int idPlatilloMenu;
+    private String nombrePlatillo; // Nombre del platillo
     private String alteraciones; // Modificaciones o alteraciones al producto
+    private boolean cancelado; // Indica si el pedido ha sido cancelado
 
     // Constructor
-    public ModeloPedido(int idOrden, int idPlatilloMenu, String alteraciones) {
+    public ModeloPedido(int idOrden, String nombrePlatillo, String alteraciones, boolean cancelado) {
         this.idOrden = idOrden;
-        this.idPlatilloMenu = idPlatilloMenu;
+        this.nombrePlatillo = nombrePlatillo;
         this.alteraciones = alteraciones;
+        this.cancelado = cancelado;
     }
 
     // Getters y setters
@@ -21,12 +23,12 @@ public class ModeloPedido {
         this.idOrden = idOrden;
     }
 
-    public int getIdPlatilloMenu() {
-        return idPlatilloMenu;
+    public String getNombrePlatillo() {
+        return nombrePlatillo;
     }
 
-    public void setIdPlatilloMenu(int idPlatilloMenu) {
-        this.idPlatilloMenu = idPlatilloMenu;
+    public void setNombrePlatillo(String nombrePlatillo) {
+        this.nombrePlatillo = nombrePlatillo;
     }
 
     public String getAlteraciones() {
@@ -37,13 +39,22 @@ public class ModeloPedido {
         this.alteraciones = alteraciones;
     }
 
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+
     // Método toString para representación textual del pedido
     @Override
     public String toString() {
         return "Pedido{" +
                 "idOrden=" + idOrden +
-                ", idPlatilloMenu=" + idPlatilloMenu +
+                ", nombrePlatillo='" + nombrePlatillo + '\'' +
                 ", alteraciones='" + alteraciones + '\'' +
+                ", cancelado=" + cancelado +
                 '}';
     }
 }

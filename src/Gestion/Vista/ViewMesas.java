@@ -1,18 +1,27 @@
 package Gestion.Vista;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.border.LineBorder;
-import java.net.URL;
+    import Gestion.Controlador.ControladorOrdenes;
+    import Gestion.Controlador.GestorMesas;
+    import Gestion.Modelo.ModeloMesa;
+    import javax.swing.*;
+    import java.awt.*;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+    import java.awt.event.MouseAdapter;
+    import java.awt.event.MouseEvent;
+    import javax.swing.border.LineBorder;
+    import java.net.URL;
 
-public class ViewMesas extends javax.swing.JInternalFrame {
+    public class ViewMesas extends javax.swing.JInternalFrame {
 
-    private MesaPanel mesaPanel;
-    private JLabel labelMesaSeleccionada;
-
-    public ViewMesas() {
+        private MesaPanel mesaPanel;
+        private JLabel labelMesaSeleccionada;
+        private JButton btnNuevaOrden;
+        private JButton btnNuevoPedido;
+        private JButton btnCuenta;
+        private int idMesaSeleccionada = -1;
+        
+        public ViewMesas() {
         initComponents();
         setTitle("Mesas");
 
@@ -28,9 +37,14 @@ public class ViewMesas extends javax.swing.JInternalFrame {
         panelBotones.setLayout(new GridLayout(3, 1, 10, 10)); // GridLayout para alinear los botones verticalmente con espaciado
 
         // Crear y configurar los botones
-        JButton btnNuevaOrden = createIconButton("Nueva Orden", "/Gestion/servicio-de-comida.png");
-        JButton btnNuevoPedido = createIconButton("Nuevo Pedido", "/Gestion/food-and-drink.png");
-        JButton btnCuenta = createIconButton("Cuenta", "/Gestion/recepcion.png");
+        btnNuevaOrden = createIconButton("Nueva Orden", "/Gestion/servicio-de-comida.png");
+        btnNuevoPedido = createIconButton("Nuevo Pedido", "/Gestion/food-and-drink.png");
+        btnCuenta = createIconButton("Cuenta", "/Gestion/recepcion.png");
+
+        // Deshabilitar botones inicialmente
+        btnNuevaOrden.setEnabled(false);
+        btnNuevoPedido.setEnabled(false);
+        btnCuenta.setEnabled(false);
 
         // Agregar los botones al panel
         panelBotones.add(btnNuevaOrden);
@@ -45,6 +59,17 @@ public class ViewMesas extends javax.swing.JInternalFrame {
         getContentPane().add(panelBotones, BorderLayout.WEST); // Añadir panel de botones a la izquierda
         getContentPane().add(mesaPanel, BorderLayout.CENTER); // Añadir panel de mesas (círculos) al centro
 
+        // Añadir ActionListener al botón de Nueva Orden
+        btnNuevaOrden.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (idMesaSeleccionada != -1) {
+                    ControladorOrdenes.asignarMesaAOrden(idMesaSeleccionada);
+                    // Actualizar estado del botón o realizar otras acciones necesarias después de asignar la orden
+                }
+            }
+        });
+
         // Ajustar tamaño y otros ajustes del JInternalFrame
         setResizable(true);
         setClosable(true);
@@ -53,57 +78,81 @@ public class ViewMesas extends javax.swing.JInternalFrame {
         pack(); // Ajusta automáticamente el tamaño del JInternalFrame según su contenido
     }
 
-   private JButton createIconButton(String text, String iconPath) {
-        JButton button = new JButton(text);
+       private JButton createIconButton(String text, String iconPath) {
+            JButton button = new JButton(text);
 
-        // Cargar el icono desde el archivo usando getResource
-        URL imageUrl = getClass().getResource(iconPath);
-        if (imageUrl != null) {
-            ImageIcon icon = new ImageIcon(imageUrl);
-            button.setIcon(icon);
-        } else {
-            System.err.println("No se pudo encontrar la imagen en la ruta especificada: " + iconPath);
-        }
-
-        // Configuración adicional del botón
-        button.setHorizontalTextPosition(SwingConstants.CENTER);
-        button.setVerticalTextPosition(SwingConstants.BOTTOM);
-
-        return button;
-    }
-   
-    private void agregarMesasEnDosFilas() {
-        // Asumiendo un tamaño fijo del panel
-        int panelWidth = 600;
-        int panelHeight = 400;
-
-        // Calculando la posición y el tamaño de cada mesa
-        int numMesasPorFila = 5;
-        int diameter = 80;
-        int padding = 20; // Espacio entre mesas y entre filas
-
-        // Distribuir las mesas en dos filas
-        int startX1 = (panelWidth - (numMesasPorFila * (diameter + padding))) / 2; // Iniciar desde el centro para la primera fila
-        int startX2 = (panelWidth - (numMesasPorFila * (diameter + padding))) / 2; // Iniciar desde el centro para la segunda fila
-        int y1 = (panelHeight - diameter - padding) / 4; // Posición Y para la primera fila
-        int y2 = (panelHeight - diameter - padding) * 3 / 4; // Posición Y para la segunda fila
-
-        for (int i = 0; i < 10; i++) {
-            int x, y;
-            if (i < 5) {
-                x = startX1 + i * (diameter + padding);
-                y = y1;
+            // Cargar el icono desde el archivo usando getResource
+            URL imageUrl = getClass().getResource(iconPath);
+            if (imageUrl != null) {
+                ImageIcon icon = new ImageIcon(imageUrl);
+                button.setIcon(icon);
             } else {
-                x = startX2 + (i - 5) * (diameter + padding);
-                y = y2;
+                System.err.println("No se pudo encontrar la imagen en la ruta especificada: " + iconPath);
             }
-            mesaPanel.agregarMesa(x, y, diameter, String.valueOf(i + 1));
+
+            // Configuración adicional del botón
+            button.setHorizontalTextPosition(SwingConstants.CENTER);
+            button.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+            return button;
         }
-    }
-    
-    public void actualizarLabel(String idMesa) {
-        labelMesaSeleccionada.setText("Mesa seleccionada: " + idMesa);
-    }
+
+        private void agregarMesasEnDosFilas() {
+            // Asumiendo un tamaño fijo del panel
+            int panelWidth = 600;
+            int panelHeight = 400;
+
+            // Calculando la posición y el tamaño de cada mesa
+            int numMesasPorFila = 5;
+            int diameter = 80;
+            int padding = 20; // Espacio entre mesas y entre filas
+
+            // Distribuir las mesas en dos filas
+            int startX1 = (panelWidth - (numMesasPorFila * (diameter + padding))) / 2; // Iniciar desde el centro para la primera fila
+            int startX2 = (panelWidth - (numMesasPorFila * (diameter + padding))) / 2; // Iniciar desde el centro para la segunda fila
+            int y1 = (panelHeight - diameter - padding) / 4; // Posición Y para la primera fila
+            int y2 = (panelHeight - diameter - padding) * 3 / 4; // Posición Y para la segunda fila
+
+            for (int i = 0; i < 10; i++) {
+                int x, y;
+                if (i < 5) {
+                    x = startX1 + i * (diameter + padding);
+                    y = y1;
+                } else {
+                    x = startX2 + (i - 5) * (diameter + padding);
+                    y = y2;
+                }
+                mesaPanel.agregarMesa(x, y, diameter, String.valueOf(i + 1));
+            }
+        }
+
+        public void actualizarLabel(String idMesa) {
+            labelMesaSeleccionada.setText("Mesa seleccionada: " + idMesa);
+            idMesaSeleccionada = Integer.parseInt(idMesa);
+            verificarDisponibilidadMesa(idMesaSeleccionada);
+        }
+
+        private void verificarDisponibilidadMesa(int idMesa) {
+            ModeloMesa[] mesas = GestorMesas.obtenerMesas();
+            for (ModeloMesa mesa : mesas) {
+                if (mesa.getIdMesa() == idMesa) {
+                    if (mesa.isDisponible()) {
+                        btnNuevaOrden.setEnabled(true);
+                        btnNuevoPedido.setEnabled(false);
+                        btnCuenta.setEnabled(false);
+                    } else {
+                        btnNuevaOrden.setEnabled(false);
+                        btnNuevoPedido.setEnabled(true);
+                        btnCuenta.setEnabled(true);
+                    }
+                    return;
+                }
+            }
+            // Si no se encuentra la mesa, deshabilitar todos los botones
+            btnNuevaOrden.setEnabled(false);
+            btnNuevoPedido.setEnabled(false);
+            btnCuenta.setEnabled(false);
+        }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
