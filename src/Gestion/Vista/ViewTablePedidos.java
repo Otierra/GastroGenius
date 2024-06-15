@@ -1,12 +1,54 @@
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorOrdenes;
+import Gestion.Modelo.ModeloPedido;
+import Gestion.Modelo.PedidoTableModel;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JDesktopPane;
+
 public class ViewTablePedidos extends javax.swing.JInternalFrame {
 
-    public ViewTablePedidos() {
+    private int OrderId;
+    private int PedidoId;
+    private int MesaId;
+    private List<ModeloPedido> pedidos;
+    private JDesktopPane jDesktopPane_opiciones;
+     
+    public ViewTablePedidos(int OrderId) {
+        this.OrderId = OrderId;
         initComponents();
+        pedidos = ControladorOrdenes.obtenerPedidosDeOrden(OrderId);
+        inicializarTabla();
+        agregarEventoTabla();
     }
-
+    
+    public void setJDesktopPane(JDesktopPane jDesktopPane_opiciones) {
+        this.jDesktopPane_opiciones = jDesktopPane_opiciones;
+    }
+    
+    private void inicializarTabla() {
+        PedidoTableModel pedidoTableModel = new PedidoTableModel(pedidos);
+        jTablePedido.setModel(pedidoTableModel);
+    }
    
+    private void agregarEventoTabla() {
+        jTablePedido.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = jTablePedido.getSelectedRow();
+                if (selectedRow != -1) {
+                    int idPlatillo = (int) jTablePedido.getValueAt(selectedRow, 0); 
+                    MesaId = (int) jTablePedido.getValueAt(selectedRow, 1); 
+                    jLabelPedido.setText("Platillo: " + idPlatillo);
+                    PedidoId = idPlatillo;
+                }
+            }
+        });
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,7 +166,25 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPedidoAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoAgregarActionPerformed
-        // TODO add your handling code here:
+        if (MesaId != -1) {
+                    // Crear una instancia de ViewPedido
+                    ViewPedido viewPedido = new ViewPedido(OrderId, MesaId);
+
+                    // Agregar ViewPedido al JDesktopPane
+                    jDesktopPane_opiciones.add(viewPedido);
+                    viewPedido.setVisible(true); // Hacer visible la ventana de pedido
+
+                    // Centrar ViewPedido dentro de jDesktopPane_opiciones
+                    Dimension desktopSize = jDesktopPane_opiciones.getSize();
+                    Dimension internalFrameSize = viewPedido.getSize();
+                    int x = (desktopSize.width - internalFrameSize.width) / 2;
+                    int y = (desktopSize.height - internalFrameSize.height) / 2;
+                    viewPedido.setLocation(x, y);
+
+                    // Opcional: Puedes configurar más propiedades de ViewPedido aquí si es necesario
+                } else {
+                    System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");
+                }
     }//GEN-LAST:event_jButtonPedidoAgregarActionPerformed
 
     private void jButtonPedidoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoModificarActionPerformed
@@ -136,7 +196,7 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPedidoCancelarActionPerformed
 
     private void jButtonPedidoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonPedidoSalirActionPerformed
 
 

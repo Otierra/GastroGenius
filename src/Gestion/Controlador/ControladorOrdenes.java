@@ -43,7 +43,7 @@ public class ControladorOrdenes {
         int ultimoIdPlatillo = GestorOrdenes.obtenerUltimoIdPlatillo(listaPedidos);
 
         // Crear el nuevo modelo de pedido con los datos proporcionados
-        ModeloPedido nuevoPedido = new ModeloPedido(ultimoIdPlatillo + 1, nombrePlatillo, alteraciones, false);
+        ModeloPedido nuevoPedido = new ModeloPedido(ultimoIdPlatillo, nombrePlatillo, alteraciones, false);
 
         // Agregar el nuevo pedido a la lista
         listaPedidos.add(nuevoPedido);

@@ -4,6 +4,7 @@ import Gestion.Controlador.GestorOrdenes;
 import Gestion.Modelo.ModeloOrden;
 import Gestion.Modelo.ModeloPedido;
 import Gestion.Modelo.OrdenTableModel;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
 
     private JDesktopPane jDesktopPane_opiciones;
     private OrdenTableModel ordenTableModel;
+    private int OrderId;
     
     public ViewTablaOrdenes() {
         initComponents();
@@ -38,6 +40,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                     if (filaSeleccionada != -1) {
                         int idOrden = (int) jTable1.getValueAt(filaSeleccionada, 0); // Suponiendo que la columna 0 contiene el número de orden
                         jLabelOrden.setText("Orden: " + idOrden);
+                        OrderId = idOrden;
                     }
                 }
             }
@@ -48,8 +51,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEliminar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -62,19 +64,11 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(600, 480));
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/eliminar-producto.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/eliminar-producto.png"))); // NOI18N
+        btnCancelar.setText("CUENTA");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/venta-cruzada (1).png"))); // NOI18N
-        btnModificar.setText("MODIFICAR");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -112,59 +106,61 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVerPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVerPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabelOrden))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(288, 288, 288))
+                .addGap(259, 259, 259))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(105, 105, 105)
                         .addComponent(jLabelOrden)
                         .addGap(18, 18, 18)
-                        .addComponent(btnModificar)
+                        .addComponent(btnVerPedidos)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerPedidos)))
+                        .addComponent(btnCancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        // TODO add your handling code here:
+        ViewTablePedidos viewTablePedidos = new ViewTablePedidos(OrderId);
+        jDesktopPane_opiciones.add(viewTablePedidos);
+        viewTablePedidos.setSize(800, 500); 
+        Dimension desktopSize = jDesktopPane_opiciones.getSize();
+        Dimension internalFrameSize = viewTablePedidos.getSize();
+        int x = (desktopSize.width - internalFrameSize.width) / 2;
+        int y = (desktopSize.height - internalFrameSize.height) / 2;
+        viewTablePedidos.setLocation(x, y); 
+        viewTablePedidos.setVisible(true);
+        
+        viewTablePedidos.setJDesktopPane(jDesktopPane_opiciones);
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVerPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelOrden;

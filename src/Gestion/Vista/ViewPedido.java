@@ -200,7 +200,7 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardar1ActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jRadioComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioComidaActionPerformed
