@@ -1,6 +1,8 @@
 package Gestion.Controlador;
 
 import Gestion.Modelo.ModeloOrden;
+import Gestion.Modelo.ModeloPedido;
+import java.util.List;
 
 public class GestorOrdenes {
     private static final int TAMANO_MAXIMO = 1000;
@@ -30,14 +32,39 @@ public class GestorOrdenes {
     }
     
     // Método para obtener una orden por su índice
-    public static ModeloOrden obtenerOrden(int index) {
-        if (index >= 0 && index < cantidad) {
-            return ordenes[index];
-        } else {
-            return null;
+    public static ModeloOrden obtenerOrdenPorNumero(int numeroOrden) {
+        for (ModeloOrden orden : ordenes) {
+            if (orden.getNumeroOrden() == numeroOrden) {
+                return orden;
+            }
         }
+        return null; // Retornar null si no se encuentra ninguna orden con ese número
     }
 
+     public static ModeloOrden obtenerOrdenPorIdMesaYIdOrden(int idMesa, int idOrden) {
+        for (ModeloOrden orden : ordenes) {
+            if (orden.getMesaId() == idMesa && orden.getNumeroOrden() == idOrden) {
+                return orden;
+            }
+        }
+        return null; // Si no se encuentra la orden
+    }
+    
+    // Método para obtener el último idPlatillo de la lista de pedidos
+    public static int obtenerUltimoIdPlatillo(List<ModeloPedido> pedidos) {
+        if (pedidos.isEmpty()) {
+            return 1;
+        } else {
+            int ultimoId = 1;
+            for (ModeloPedido pedido : pedidos) {
+                if (pedido.getIdPlatillo() > ultimoId) {
+                    ultimoId = pedido.getIdPlatillo();
+                }
+            }
+            return ultimoId;
+        }
+    }
+     
     // Método para buscar una orden por su número de orden
     public static ModeloOrden buscarOrdenPorNumero(int numeroOrden) {
         for (int i = 0; i < cantidad; i++) {

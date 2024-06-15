@@ -71,7 +71,7 @@ package Gestion.Vista;
                 if (idMesaSeleccionada != -1) {
                     ControladorOrdenes.asignarMesaAOrden(idMesaSeleccionada);
                     
-                    int idOrdenTomandoOrden = ControladorOrdenes.obtenerIdOrdenEnTomandoOrden();
+                    int idOrdenTomandoOrden = ControladorOrdenes.obtenerIdOrdenEnTomandoOrden(idMesaSeleccionada);
                     if (idOrdenTomandoOrden != -1) {
                         // Actualizar estado de la mesa seleccionada
                         GestorMesas.actualizarEstadoMesa(idMesaSeleccionada, idOrdenTomandoOrden, false);
@@ -93,8 +93,9 @@ package Gestion.Vista;
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (idMesaSeleccionada != -1) {
+                    int idOrdenTomandoOrden = ControladorOrdenes.obtenerIdOrdenEnTomandoOrden(idMesaSeleccionada);
                     // Crear una instancia de ViewPedido
-                    ViewPedido viewPedido = new ViewPedido();
+                    ViewPedido viewPedido = new ViewPedido(idOrdenTomandoOrden, idMesaSeleccionada);
 
                     // Agregar ViewPedido al JDesktopPane
                     jDesktopPane_opiciones.add(viewPedido);

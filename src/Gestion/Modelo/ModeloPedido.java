@@ -1,26 +1,25 @@
 package Gestion.Modelo;
 
 public class ModeloPedido {
-    private int idOrden;
+    private int idPlatillo; 
     private String nombrePlatillo; // Nombre del platillo
     private String alteraciones; // Modificaciones o alteraciones al producto
     private boolean cancelado; // Indica si el pedido ha sido cancelado
 
     // Constructor
-    public ModeloPedido(int idOrden, String nombrePlatillo, String alteraciones, boolean cancelado) {
-        this.idOrden = idOrden;
+    public ModeloPedido(int idPlatillo, String nombrePlatillo, String alteraciones, boolean cancelado) {
+        this.idPlatillo = idPlatillo;
         this.nombrePlatillo = nombrePlatillo;
         this.alteraciones = alteraciones;
         this.cancelado = cancelado;
     }
 
-    // Getters y setters
-    public int getIdOrden() {
-        return idOrden;
+    public int getIdPlatillo() {
+        return idPlatillo;
     }
 
-    public void setIdOrden(int idOrden) {
-        this.idOrden = idOrden;
+    public void setIdPlatillo(int idPlatillo) {
+        this.idPlatillo = idPlatillo;
     }
 
     public String getNombrePlatillo() {
@@ -51,7 +50,6 @@ public class ModeloPedido {
     @Override
     public String toString() {
         return "Pedido{" +
-                "idOrden=" + idOrden +
                 ", nombrePlatillo='" + nombrePlatillo + '\'' +
                 ", alteraciones='" + alteraciones + '\'' +
                 ", cancelado=" + cancelado +

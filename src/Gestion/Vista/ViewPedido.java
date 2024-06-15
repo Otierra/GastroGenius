@@ -1,13 +1,35 @@
 
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorOrdenes;
+import Gestion.Controlador.GestorOrdenes;
 import Gestion.Controlador.GestorPlatillos;
+import Gestion.Modelo.ModeloPedido;
 import Gestion.Modelo.ModeloPlatilloMenu;
+import java.util.List;
 
 public class ViewPedido extends javax.swing.JInternalFrame {
 
-    public ViewPedido() {
+    private int OrderID;
+    private int MesaID;
+    private int PedidoID;
+    private List<ModeloPedido> pedidos;
+    private String Paltillo;
+    private boolean cancelado;
+    private String cambios;
+    
+    public ViewPedido(int OrderID, int MesaId) {
+        this.OrderID = OrderID;
+        this.MesaID = MesaId;
         initComponents();
+        jTextOrden.setText(String.valueOf(OrderID));
+        jTextOrden.setEditable(false);
+        
+        pedidos = ControladorOrdenes.obtenerPedidosDeOrden(OrderID);
+        
+        ModeloPlatilloMenu[] platillosComida = GestorPlatillos.obtenerPlatillosComida();
+        llenarComboBox(platillosComida);
+        
     }
 
     private void llenarComboBoxComida() {
@@ -183,7 +205,9 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardar1ActionPerformed
-        // TODO add your handling code here:
+        int PedidoID = GestorOrdenes.obtenerUltimoIdPlatillo(pedidos) + 1;
+        pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, PedidoID, Paltillo, title);
+        ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
     }//GEN-LAST:event_jButtonGuardar1ActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -191,7 +215,7 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jRadioComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioComidaActionPerformed
