@@ -120,7 +120,15 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuCartaMouseClicked
 
     private void jMenuCocinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCocinaMouseClicked
-        
+        ViewTableCocina viewTableCocina = new ViewTableCocina();
+        jDesktopPane_opiciones.add(viewTableCocina);
+        viewTableCocina.setSize(800, 500); 
+        Dimension desktopSize = jDesktopPane_opiciones.getSize();
+        Dimension internalFrameSize = viewTableCocina.getSize();
+        int x = (desktopSize.width - internalFrameSize.width) / 2;
+        int y = (desktopSize.height - internalFrameSize.height) / 2;
+        viewTableCocina.setLocation(x, y); 
+        viewTableCocina.setVisible(true);
     }//GEN-LAST:event_jMenuCocinaMouseClicked
 
     private void jMenuOrdenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuOrdenMouseClicked

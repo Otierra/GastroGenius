@@ -67,17 +67,6 @@ public class GestorPlatillos {
         System.out.println("Platillo con ID " + id + " no encontrado.");
     }
 
-    // Método para listar todos los platillos
-    public void listarPlatillos() {
-        if (cantidad == 0) {
-            System.out.println("No hay platillos en el arreglo.");
-        } else {
-            for (int i = 0; i < cantidad; i++) {
-                System.out.println(platillos[i]);
-            }
-        }
-    }
-
     // Método para buscar un platillo por su id
     public ModeloPlatilloMenu buscarPlatillo(int id) {
         for (int i = 0; i < cantidad; i++) {
@@ -86,5 +75,14 @@ public class GestorPlatillos {
             }
         }
         return null;
+    }
+    
+    public int buscarTiempoPorNombre(String nombre) {
+        for (ModeloPlatilloMenu platillo : platillos) {
+            if (platillo != null && nombre.equals(platillo.getDescripcion())) {
+                return platillo.getTiempoDePreparacion();
+            }
+        }
+        return 15; // Indicativo de que no se encontró el platillo
     }
 }

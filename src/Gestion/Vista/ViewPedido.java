@@ -1,6 +1,7 @@
 
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorCocina;
 import Gestion.Controlador.ControladorOrdenes;
 import Gestion.Controlador.GestorOrdenes;
 import Gestion.Controlador.GestorPlatillos;
@@ -244,6 +245,10 @@ public class ViewPedido extends javax.swing.JInternalFrame {
         if(isAgregar){
             pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, platillo, cambios);
             ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
+            
+            GestorPlatillos view = new GestorPlatillos();
+            int tiempo = view.buscarTiempoPorNombre(platillo);
+            ControladorCocina.agregarPedidoSinPreparar(OrderID, PedidoID, platillo, tiempo);
         }
         else{
             ControladorOrdenes.modificarPedidoEnOrden(OrderID, PedidoID, platillo, cambios);
