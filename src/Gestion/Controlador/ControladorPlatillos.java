@@ -13,6 +13,16 @@ public class ControladorPlatillos {
         this.siguienteId = 1; // Inicializar el ID desde 1, ajustar según sea necesario
     }
 
+    public double obtenerPrecioPorNombre(String nombrePlatillo) {
+        ModeloPlatilloMenu platillo = gestorPlatillos.buscarPlatilloPorNombre(nombrePlatillo);
+        if (platillo != null) {
+            return platillo.getPrecio();
+        } else {
+            System.out.println("Platillo con nombre " + nombrePlatillo + " no encontrado.");
+            return -1; // O puedes lanzar una excepción según tu diseño
+        }
+    }
+    
     public void agregarPlatillo(String nombre, double precio, String categoria, boolean esComida, int tiempoPreparacion) {
         ModeloPlatilloMenu platillo = new ModeloPlatilloMenu(nombre, precio, categoria, esComida, tiempoPreparacion);
         platillo.setId(siguienteId);
@@ -38,4 +48,8 @@ public class ControladorPlatillos {
     public int obtenerSiguienteId() {
         return siguienteId;
     }
+    
+    
+    
+    
 }

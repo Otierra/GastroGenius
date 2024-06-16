@@ -29,11 +29,14 @@ public class GestorMesas {
         }
         System.out.println("Mesa con ID " + idMesa + " no encontrada.");
     }
-
-    // Método para listar todas las mesas
-    public static void listarMesas() {
+    
+    public static int obtenerOrdenPorMesa(int idMesa) {
         for (ModeloMesa mesa : mesas) {
-            System.out.println(mesa);
+            if (mesa.getIdMesa() == idMesa) {
+                return mesa.getIdOrden();
+            }
         }
+        System.out.println("Mesa con ID " + idMesa + " no encontrada.");
+        return -1; // Retorna -1 si no se encuentra la mesa
     }
 }

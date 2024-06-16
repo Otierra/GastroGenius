@@ -1,8 +1,10 @@
 package Gestion.Vista;
 
     import Gestion.Controlador.ControladorOrdenes;
+import Gestion.Controlador.ControladorPlatillos;
     import Gestion.Controlador.GestorMesas;
     import Gestion.Modelo.ModeloMesa;
+import Gestion.Modelo.ModeloPedido;
     import javax.swing.*;
     import java.awt.*;
     import java.awt.event.ActionEvent;
@@ -115,6 +117,38 @@ package Gestion.Vista;
             }
         });
 
+        btnCuenta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if (idMesaSeleccionada != -1) {
+                   double total = 0.0;
+                   int ordenID = GestorMesas.obtenerOrdenPorMesa(idMesaSeleccionada);
+                   java.util.List<ModeloPedido> lst = ControladorOrdenes.obtenerPedidosDeOrden(ordenID);
+                   for (ModeloPedido pedido : lst) {
+                       String platillo = pedido.getNombrePlatillo();
+                       ControladorPlatillos viewController = new ControladorPlatillos();
+                       
+                       double precioPlatillo = viewController.obtenerPrecioPorNombre(platillo);
+                       total += precioPlatillo;
+                   }
+                   
+                    String mensaje = String.format(
+                        "Cuenta mandada e impresora.\nEl total de la mesa %d con orden %d es de un total %.2f",
+                        idMesaSeleccionada, ordenID, total
+                    );
+
+                    // Mostrar el diálogo
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        mensaje, 
+                        "Cuenta de la Mesa", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+               
+               }
+            }
+        });
+        
         // Ajustar tamaño y otros ajustes del JInternalFrame
         setResizable(true);
         setClosable(true);

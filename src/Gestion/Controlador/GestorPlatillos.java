@@ -77,6 +77,15 @@ public class GestorPlatillos {
         return null;
     }
     
+    public ModeloPlatilloMenu buscarPlatilloPorNombre(String nombre) {
+         for (ModeloPlatilloMenu platillo : platillos) {
+            if (platillo.getDescripcion().equalsIgnoreCase(nombre)) {
+                return platillo;
+            }
+        }
+        return null;
+    }
+    
     public int buscarTiempoPorNombre(String nombre) {
         for (ModeloPlatilloMenu platillo : platillos) {
             if (platillo != null && nombre.equals(platillo.getDescripcion())) {
