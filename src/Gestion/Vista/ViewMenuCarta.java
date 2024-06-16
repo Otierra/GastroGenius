@@ -104,7 +104,7 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Precio del platillo :");
 
-        jSliderPrecio.setMaximum(950);
+        jSliderPrecio.setMaximum(500);
         jSliderPrecio.setMinimum(25);
 
         jTextPrecio.setText("25");
