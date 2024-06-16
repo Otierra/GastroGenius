@@ -8,21 +8,31 @@ public class ModeloCocina {
     private String platillo;
     private String prioridad;
     private String status; 
+    private String comentarios;
     private boolean inicioPreparacion;
     
     // Constructor
-    public ModeloCocina(int ordenID, int platilloID, String platillo, String prioridad, String status, boolean inicioPreparacion) {
+    public ModeloCocina(int ordenID, int platilloID, String platillo, String prioridad, String status, boolean inicioPreparacion, String comentarios) {
         this.ordenID = ordenID;
         this.platilloID = platilloID;
         this.platillo = platillo;
         this.prioridad = prioridad;
         this.status = status;
         this.inicioPreparacion = inicioPreparacion;
+        this.comentarios = comentarios;
     }
 
     // Getters
     public int getOrdenID() {
         return ordenID;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
     }
 
     public int getPlatilloID() {

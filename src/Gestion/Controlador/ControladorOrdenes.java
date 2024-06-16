@@ -39,6 +39,23 @@ public class ControladorOrdenes {
         }
     }
     
+    public static int obtenerUltimoIDPedidoDeOrden(int numeroOrden) {
+        ModeloOrden orden = GestorOrdenes.obtenerOrdenPorNumero(numeroOrden);
+        if (orden != null) {
+            List<ModeloPedido> pedidos = orden.getPedidos();
+            int ultimoIDPedido = -1;
+            for (ModeloPedido pedido : pedidos) {
+                if (pedido.getIdPlatillo() > ultimoIDPedido) {
+                    ultimoIDPedido = pedido.getIdPlatillo();
+                }
+            }
+            return ultimoIDPedido;
+        } else {
+            // Manejar el caso cuando no se encuentra la orden
+            return -1; // O podrías devolver algún valor que indique error o lanzar una excepción según tu diseño
+        }
+    }
+    
     public static ModeloPedido obtenerPedidoPorIdPlatillo(List<ModeloPedido> listaPedidos, int idPlatillo) {
         for (ModeloPedido pedido : listaPedidos) {
             if (pedido.getIdPlatillo() == idPlatillo) {
@@ -121,6 +138,29 @@ public class ControladorOrdenes {
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró la orden con número " + idOrden);
+        }
+    }
+    
+    public static void buscarYModificarEstadoPedido(int ordenID, int pedidoID, String nuevoEstado) {
+        // Obtener la orden por su número de orden
+        ModeloOrden orden = GestorOrdenes.obtenerOrdenPorNumero(ordenID);
+
+        if (orden != null) {
+            // Obtener la lista de pedidos de la orden
+            List<ModeloPedido> pedidos = orden.getPedidos();
+
+            // Buscar el pedido que concuerde con el pedidoID
+            for (ModeloPedido pedido : pedidos) {
+                if (pedido.getIdPlatillo() == pedidoID) {
+                    // Modificar el estado de la orden
+                    orden.setEstado(nuevoEstado);
+                    System.out.println("Estado de la orden actualizado a " + nuevoEstado);
+                    return;
+                }
+            }
+            System.out.println("No se encontró el pedido con idPlatillo " + pedidoID + " en la orden con idOrden " + ordenID);
+        } else {
+            System.out.println("No se encontró la orden con número " + ordenID);
         }
     }
     

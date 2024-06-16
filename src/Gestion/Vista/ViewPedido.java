@@ -248,7 +248,14 @@ public class ViewPedido extends javax.swing.JInternalFrame {
             
             GestorPlatillos view = new GestorPlatillos();
             int tiempo = view.buscarTiempoPorNombre(platillo);
-            ControladorCocina.agregarPedidoSinPreparar(OrderID, PedidoID, platillo, tiempo);
+            
+            PedidoID = ControladorOrdenes.obtenerUltimoIDPedidoDeOrden(OrderID);
+            
+            if (jRadioComida.isSelected()) {
+                ControladorCocina.agregarPedidoSinPrepararComida(OrderID, PedidoID, platillo, tiempo,cambios);
+            }else{
+                ControladorCocina.agregarPedidoSinPrepararBebida(OrderID, PedidoID, platillo, tiempo,cambios);
+            }
         }
         else{
             ControladorOrdenes.modificarPedidoEnOrden(OrderID, PedidoID, platillo, cambios);

@@ -1,27 +1,48 @@
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorCocina;
+import Gestion.Controlador.ControladorOrdenes;
 import Gestion.Controlador.GestionCocina;
 import Gestion.Modelo.ModeloCocina;
 import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewTableCocina extends javax.swing.JInternalFrame {
 
-   
+    private int OrderID;
+    private int PlatilloID;
+    
     public ViewTableCocina() {
         initComponents();
-        llenarTablaPedidosSinPreparar();
-        llenarTablaPedidosEnPreparacion();
+        if(jRadioButtonCocinaComida.isSelected()){
+            llenarTablaPedidosSinPreparar(true);
+            llenarTablaPedidosEnPreparacion(true);
+        }else{
+            llenarTablaPedidosSinPreparar(false);
+            llenarTablaPedidosEnPreparacion(false);
+        }
+        
+        agregarListenersTablas();
     }
 
     // Método para llenar la tabla de pedidos sin preparar
-    private void llenarTablaPedidosSinPreparar() {
-        List<ModeloCocina> pedidosSinPreparar = GestionCocina.getPedidosSinPreparar();
+    private void llenarTablaPedidosSinPreparar(boolean tipo) {
+        List<ModeloCocina> pedidosSinPreparar;
+        
+        if(tipo){
+            pedidosSinPreparar = GestionCocina.getPedidosSinPrepararComida();
+        }else{
+            pedidosSinPreparar = GestionCocina.getPedidosSinPrepararBebida();
+        }
+        
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Orden ID");
         model.addColumn("Platillo ID");
         model.addColumn("Platillo");
         model.addColumn("Prioridad");
+        model.addColumn("Comentarios");
 
         for (ModeloCocina pedido : pedidosSinPreparar) {
             model.addRow(new Object[]{
@@ -29,6 +50,7 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                 pedido.getPlatilloID(),
                 pedido.getPlatillo(),
                 pedido.getPrioridad(),
+                pedido.getComentarios()
             });
         }
 
@@ -36,13 +58,22 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
     }
 
     // Método para llenar la tabla de pedidos en preparación
-    private void llenarTablaPedidosEnPreparacion() {
-        List<ModeloCocina> pedidosEnPreparacion = GestionCocina.getPedidosEnPreparacion();
+    private void llenarTablaPedidosEnPreparacion(boolean tipo) {
+        
+        List<ModeloCocina> pedidosEnPreparacion;
+        
+        if(tipo){
+            pedidosEnPreparacion = GestionCocina.getPedidosEnPreparacionComida();
+        }else{
+            pedidosEnPreparacion = GestionCocina.getPedidosEnPreparacionBebida();
+        }
+
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Orden ID");
         model.addColumn("Platillo ID");
         model.addColumn("Platillo");
         model.addColumn("Prioridad");
+        model.addColumn("Comentarios");
 
         for (ModeloCocina pedido : pedidosEnPreparacion) {
             model.addRow(new Object[]{
@@ -50,10 +81,53 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                 pedido.getPlatilloID(),
                 pedido.getPlatillo(),
                 pedido.getPrioridad(),
+                pedido.getComentarios()
             });
         }
 
         jTableTerminado.setModel(model);
+    }
+    
+    private void agregarListenersTablas() {
+        jTableSin.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && jTableSin.getSelectedRow() != -1) {
+                    int selectedRow = jTableSin.getSelectedRow();
+                    int ordenID = (int) jTableSin.getValueAt(selectedRow, 0);
+                    OrderID = ordenID;
+                    int platilloID = (int) jTableSin.getValueAt(selectedRow, 1);
+                    jTextCocinaOrden.setText(String.valueOf(ordenID));
+                    PlatilloID = platilloID;
+                    jTextCocinaIDPedido.setText(String.valueOf(ordenID));
+                    
+                    String platillo = jTableSin.getValueAt(selectedRow, 2).toString();
+                    jTextCocinaPlatillo.setText(platillo);  
+                    
+                    String comentarios = jTableSin.getValueAt(selectedRow, 4).toString();
+                    jTextAreaNotas.setText(comentarios);  
+                }
+            }
+        });
+
+        jTableTerminado.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && jTableTerminado.getSelectedRow() != -1) {
+                    int selectedRow = jTableTerminado.getSelectedRow();
+                    int ordenID = (int) jTableTerminado.getValueAt(selectedRow, 0);
+                    OrderID = ordenID;
+                    jTextCocinaOrden.setText(String.valueOf(ordenID));
+                    int platilloID = (int) jTableTerminado.getValueAt(selectedRow, 1);
+                    PlatilloID = platilloID;
+                    jTextCocinaIDPedido.setText(String.valueOf(ordenID));
+                   
+                    String platillo = jTableTerminado.getValueAt(selectedRow, 2).toString();
+                    jTextCocinaPlatillo.setText(platillo);  
+                    
+                    String comentarios = jTableTerminado.getValueAt(selectedRow, 4).toString();
+                    jTextAreaNotas.setText(comentarios);  
+                }
+            }
+        });
     }
   
     @SuppressWarnings("unchecked")
@@ -71,8 +145,8 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
         jButtonPedidoPreparacion = new javax.swing.JButton();
         jButtonPedidoListo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonCocinaComida = new javax.swing.JRadioButton();
+        jRadioButtonCocinaBebida = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTerminado = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -121,12 +195,22 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo de Platillo :");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("¿Es comida?");
+        buttonGroup1.add(jRadioButtonCocinaComida);
+        jRadioButtonCocinaComida.setSelected(true);
+        jRadioButtonCocinaComida.setText("¿Es comida?");
+        jRadioButtonCocinaComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCocinaComidaActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("¿Es bebida?");
+        buttonGroup1.add(jRadioButtonCocinaBebida);
+        jRadioButtonCocinaBebida.setText("¿Es bebida?");
+        jRadioButtonCocinaBebida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCocinaBebidaActionPerformed(evt);
+            }
+        });
 
         jTableTerminado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,9 +273,9 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(jRadioButtonCocinaComida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
+                                .addComponent(jRadioButtonCocinaBebida))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel6)
@@ -210,8 +294,8 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     .addComponent(jTextCocinaIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextCocinaPlatillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRadioButtonCocinaComida)
+                    .addComponent(jRadioButtonCocinaBebida))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -225,9 +309,9 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPedidoPreparacion)
-                    .addComponent(jButtonPedidoListo))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonPedidoListo)
+                    .addComponent(jButtonPedidoPreparacion))
                 .addGap(18, 18, 18))
         );
 
@@ -235,12 +319,57 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPedidoPreparacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoPreparacionActionPerformed
+        ControladorCocina.cambiarPedidoSinPreparar(OrderID,PlatilloID);
         
+        if(jRadioButtonCocinaComida.isSelected()){
+            llenarTablaPedidosSinPreparar(true);
+            llenarTablaPedidosEnPreparacion(true);
+        }else{
+            llenarTablaPedidosSinPreparar(false);
+            llenarTablaPedidosEnPreparacion(false);
+        }
+        
+        ControladorOrdenes.buscarYModificarEstadoPedido(OrderID,PlatilloID,"Preparandose");
     }//GEN-LAST:event_jButtonPedidoPreparacionActionPerformed
 
     private void jButtonPedidoListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoListoActionPerformed
         
+        if(!ControladorCocina.quedanPedidosSinPreparar(OrderID)){
+            ControladorOrdenes.buscarYModificarEstadoPedido(OrderID,PlatilloID,"Listo");
+        }
+        
+        ControladorCocina.eliminarPedido(OrderID,PlatilloID);
+        
+        if(jRadioButtonCocinaComida.isSelected()){
+            llenarTablaPedidosSinPreparar(true);
+            llenarTablaPedidosEnPreparacion(true);
+        }else{
+            llenarTablaPedidosSinPreparar(false);
+            llenarTablaPedidosEnPreparacion(false);
+        }
     }//GEN-LAST:event_jButtonPedidoListoActionPerformed
+
+    private void jRadioButtonCocinaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCocinaComidaActionPerformed
+        if (jRadioButtonCocinaComida.isSelected()) {
+            llenarTablaPedidosSinPreparar(true);
+            llenarTablaPedidosEnPreparacion(true);
+            jTextCocinaOrden.setText(String.valueOf(""));
+            jTextCocinaIDPedido.setText(String.valueOf(""));         
+            jTextCocinaPlatillo.setText("");      
+            jTextAreaNotas.setText(""); 
+        }
+    }//GEN-LAST:event_jRadioButtonCocinaComidaActionPerformed
+
+    private void jRadioButtonCocinaBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCocinaBebidaActionPerformed
+        if (jRadioButtonCocinaBebida.isSelected()) {
+            llenarTablaPedidosSinPreparar(false);
+            llenarTablaPedidosEnPreparacion(false);
+            jTextCocinaOrden.setText(String.valueOf(""));
+            jTextCocinaIDPedido.setText(String.valueOf(""));         
+            jTextCocinaPlatillo.setText("");      
+            jTextAreaNotas.setText(""); 
+        }
+    }//GEN-LAST:event_jRadioButtonCocinaBebidaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -253,8 +382,8 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButtonCocinaBebida;
+    private javax.swing.JRadioButton jRadioButtonCocinaComida;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
