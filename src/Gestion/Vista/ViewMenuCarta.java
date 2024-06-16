@@ -1,6 +1,8 @@
 package Gestion.Vista;
 
 import Gestion.Controlador.ControladorPlatillos;
+import Gestion.Modelo.ModeloPlatilloMenu;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,10 +16,40 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
     private int tiempoDePreparacion;
     private boolean esNew;
 
-    public ViewMenuCarta(boolean esNew) {
-        this.esNew = esNew;
+    public ViewMenuCarta() {
+        this.esNew = true;
         initComponents(); // Inicializar componentes visuales
         initializeSliders(); // Método para inicializar sliders u otros componentes
+    }
+    
+    public ViewMenuCarta(int platilloID) {
+        this.selectedPlatilloId = platilloID;
+        this.esNew = false;
+        initComponents(); // Inicializar componentes visuales
+        initializeSliders(); // Método para inicializar sliders u otros componentes
+        ControladorPlatillos controller = new ControladorPlatillos();
+        ModeloPlatilloMenu platillo = controller.obtenerPlatilloPorId(platilloID);
+
+        if (platillo != null) {
+            jSliderPrecio.setValue((int) platillo.getPrecio());
+            jSliderPreparacion.setValue(platillo.getTiempoDePreparacion()); // Establecer el valor del JSlider para la preparación
+            jTextPlatillo.setText(platillo.getDescripcion()); // Establecer el texto del platillo
+            String categoria = platillo.getCategoria();
+            for (int i = 0; i < jComboBoxCategoria.getItemCount(); i++) {
+                if (jComboBoxCategoria.getItemAt(i).equals(categoria)) {
+                    jComboBoxCategoria.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            // Manejar el caso donde el platillo no se encuentra
+            JOptionPane.showMessageDialog(
+                this,
+                "Platillo con ID " + platilloID + " no encontrado.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 
     private void initializeSliders() {
@@ -37,6 +69,14 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
          jTextTiempo.setEditable(false);
      }
 
+    private void resetForm() {
+        jSliderPrecio.setValue(25); // Establecer el valor del JSlider para el precio en 25
+        jSliderPreparacion.setValue(5); // Establecer el valor del JSlider para la preparación en 5
+        jTextPlatillo.setText(""); // Limpiar el campo de texto del platillo
+        jComboBoxCategoria.setSelectedIndex(-1); // Desseleccionar cualquier elemento en el JComboBox
+    }
+    
+    
     private void obtenerValoresComponentes() {
         // Obtener nombre del platillo
         descripcion = jTextPlatillo.getText().trim();
@@ -119,6 +159,7 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
         jLabel5.setText("Tipo de platillo :");
 
         buttonGroup1.add(jRadioButtonComida);
+        jRadioButtonComida.setSelected(true);
         jRadioButtonComida.setText("¿ Es comida?");
 
         buttonGroup1.add(jRadioButtonBebida);
@@ -230,8 +271,11 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
         if (esNew){
             controller.agregarPlatillo(descripcion, precio, categoria, esComida, tiempoDePreparacion);
         }else{
-        
+            controller.modificarPlatillo(selectedPlatilloId, descripcion, precio, categoria, esComida, tiempoDePreparacion);
+            this.dispose();
         }
+        
+        resetForm();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

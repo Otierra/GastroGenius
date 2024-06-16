@@ -169,7 +169,7 @@ public class ViewTableMenu extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        ViewMenuCarta view = new ViewMenuCarta(true);
+        ViewMenuCarta view = new ViewMenuCarta();
         jDesktopPane_opiciones.add(view);
         view.setSize(800, 500);
         Dimension desktopSize = jDesktopPane_opiciones.getSize();
@@ -183,11 +183,14 @@ public class ViewTableMenu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        JOptionPane.showMessageDialog(null, "Prueba", "Error", JOptionPane.ERROR_MESSAGE);
+        ControladorPlatillos controller = new ControladorPlatillos();
+  
+        controller.modificarPlatillo(selectedPlatilloId, "", 0.0, "", true, 5);
+          
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        ViewMenuCarta view = new ViewMenuCarta(false);
+        ViewMenuCarta view = new ViewMenuCarta(selectedPlatilloId);
         jDesktopPane_opiciones.add(view);
         view.setSize(800, 500);
         Dimension desktopSize = jDesktopPane_opiciones.getSize();

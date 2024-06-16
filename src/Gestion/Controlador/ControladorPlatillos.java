@@ -1,8 +1,6 @@
 package Gestion.Controlador;
 
 import Gestion.Modelo.ModeloPlatilloMenu;
-import Gestion.Vista.ViewMenuCarta;
-import java.util.Arrays;
 
 public class ControladorPlatillos {
     private GestorPlatillos gestorPlatillos;
@@ -49,7 +47,15 @@ public class ControladorPlatillos {
         return siguienteId;
     }
     
-    
-    
+     // Método para buscar un platillo por id
+    public ModeloPlatilloMenu obtenerPlatilloPorId(int id) {
+        ModeloPlatilloMenu platillo = gestorPlatillos.buscarPlatillo(id);
+        if (platillo != null) {
+            return platillo;
+        } else {
+            System.out.println("Platillo con ID " + id + " no encontrado.");
+            return null; // O puedes lanzar una excepción según tu diseño
+        }
+    }
     
 }

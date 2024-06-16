@@ -132,6 +132,8 @@ import Gestion.Modelo.ModeloPedido;
                        total += precioPlatillo;
                    }
                    
+                   GestorMesas.liberarMesa(idMesaSeleccionada);
+                   
                     String mensaje = String.format(
                         "Cuenta mandada e impresora.\nEl total de la mesa %d con orden %d es de un total %.2f",
                         idMesaSeleccionada, ordenID, total
@@ -145,6 +147,9 @@ import Gestion.Modelo.ModeloPedido;
                         JOptionPane.INFORMATION_MESSAGE
                     );
                
+                    btnNuevaOrden.setEnabled(true);
+                    btnNuevoPedido.setEnabled(false);
+                    btnCuenta.setEnabled(false);
                }
             }
         });

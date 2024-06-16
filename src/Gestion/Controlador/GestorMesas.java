@@ -39,4 +39,15 @@ public class GestorMesas {
         System.out.println("Mesa con ID " + idMesa + " no encontrada.");
         return -1; // Retorna -1 si no se encuentra la mesa
     }
+    
+    public static void liberarMesa(int idMesa) {
+    for (int i = 0; i < TAMANO_MAXIMO; i++) {
+        if (mesas[i].getIdMesa() == idMesa) {
+            mesas[i].setIdOrden(-1); // Borra el ID de la orden
+            mesas[i].setDisponible(true); // Marca la mesa como disponible
+            return;
+        }
+    }
+    System.out.println("Mesa con ID " + idMesa + " no encontrada.");
+}
 }

@@ -55,23 +55,11 @@ public class GestorPlatillos {
         System.out.println("El arreglo de platillos está lleno. No se puede agregar más platillos.");
     }
 
-    // Método para eliminar un platillo por su id
-    public void eliminarPlatillo(int id) {
-        for (int i = 0; i < cantidad; i++) {
-            if (platillos[i].getId() == id) {
-                platillos[i] = platillos[--cantidad]; // Mover el último elemento al lugar del elemento a eliminar
-                platillos[cantidad] = null; // Limpiar el último elemento
-                return;
-            }
-        }
-        System.out.println("Platillo con ID " + id + " no encontrado.");
-    }
-
     // Método para buscar un platillo por su id
     public ModeloPlatilloMenu buscarPlatillo(int id) {
-        for (int i = 0; i < cantidad; i++) {
-            if (platillos[i].getId() == id) {
-                return platillos[i];
+         for (ModeloPlatilloMenu platillo : platillos) {
+            if (platillo.getId() == id) {
+                return platillo;
             }
         }
         return null;
