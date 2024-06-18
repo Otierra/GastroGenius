@@ -171,7 +171,6 @@ public class ViewTableMenu extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         ViewMenuCarta view = new ViewMenuCarta();
         jDesktopPane_opiciones.add(view);
-        view.setSize(800, 500);
         Dimension desktopSize = jDesktopPane_opiciones.getSize();
         Dimension internalFrameSize = view.getSize();
         int x = (desktopSize.width - internalFrameSize.width) / 2;
