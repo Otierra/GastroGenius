@@ -20,7 +20,10 @@ public class ViewTableMenu extends javax.swing.JInternalFrame {
     
     public ViewTableMenu() {
         initComponents();
-        initializeTable(); // Método para inicializar la tabla con el modelo
+        initializeTable(); 
+        btnAgregar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnModificar.setEnabled(false);
     }
     
     public void setJDesktopPane(JDesktopPane jDesktopPane_opiciones) {
@@ -53,6 +56,8 @@ public class ViewTableMenu extends javax.swing.JInternalFrame {
                     // Guardar el ID del platillo en la variable
                     selectedPlatilloId = idPlatillo;
                     System.out.println(selectedPlatilloId);
+                    btnEliminar.setEnabled(true);
+                    btnModificar.setEnabled(true);
                 }
             }
         });

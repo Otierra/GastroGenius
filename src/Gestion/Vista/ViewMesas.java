@@ -102,14 +102,13 @@ import Gestion.Modelo.ModeloPedido;
                     // Agregar ViewPedido al JDesktopPane
                     jDesktopPane_opiciones.add(viewPedido);
                     viewPedido.setVisible(true); // Hacer visible la ventana de pedido
-
+                        
                     // Centrar ViewPedido dentro de jDesktopPane_opiciones
                     Dimension desktopSize = jDesktopPane_opiciones.getSize();
                     Dimension internalFrameSize = viewPedido.getSize();
                     int x = (desktopSize.width - internalFrameSize.width) / 2;
                     int y = (desktopSize.height - internalFrameSize.height) / 2;
                     viewPedido.setLocation(x, y);
-
                     // Opcional: Puedes configurar más propiedades de ViewPedido aquí si es necesario
                 } else {
                     System.out.println("Debe seleccionar una mesa antes de agregar un pedido.");

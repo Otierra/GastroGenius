@@ -244,7 +244,7 @@ public class ViewPedido extends javax.swing.JInternalFrame {
         if(isAgregar){
             pedidos = ControladorOrdenes.agregarPedidoALista(pedidos, platillo, cambios);
             ControladorOrdenes.actualizarPedidosEnOrden(MesaID, OrderID, pedidos);
-            
+            ControladorOrdenes.cambiarEstadoMesa(MesaID);
             GestorPlatillos view = new GestorPlatillos();
             int tiempo = view.buscarTiempoPorNombre(platillo);
             

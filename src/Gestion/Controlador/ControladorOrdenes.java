@@ -13,11 +13,22 @@ public class ControladorOrdenes {
         for (ModeloOrden orden : ordenes) {
             if (orden.getMesaId() == -1) {
                 orden.setMesaId(idMesa);
-                orden.setEstado("Tomando Orden");
+                orden.setEstado("Sin Preparar");
                 break; // Terminamos el ciclo una vez encontramos y actualizamos la primera orden con idMesa == -1
             }
         }
     }
+    
+    public static void cambiarEstadoMesa(int idMesa) {
+        ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
+        for (ModeloOrden orden : ordenes) {
+            if (orden.getMesaId() == -1) {
+                orden.setEstado("Sin Preparar");
+                break; // Terminamos el ciclo una vez encontramos y actualizamos la primera orden con idMesa == -1
+            }
+        }
+    }
+    
     
     public static int obtenerIdOrdenEnTomandoOrden(int idMesa) {
         ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
