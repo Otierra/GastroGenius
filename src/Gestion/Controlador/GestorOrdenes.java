@@ -2,6 +2,7 @@ package Gestion.Controlador;
 
 import Gestion.Modelo.ModeloOrden;
 import Gestion.Modelo.ModeloPedido;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GestorOrdenes {
@@ -30,6 +31,17 @@ public class GestorOrdenes {
     public static ModeloOrden[] obtenerTodasLasOrdenes() {
         return ordenes;
     }
+    
+    public static ModeloOrden[] obtenerTodasLasOrdenesActuales() {
+      List<ModeloOrden> ordenesFiltradas = new ArrayList<>();
+        for (ModeloOrden orden : ordenes) {
+            if (orden != null && orden.getMesaId() != -1) {
+                ordenesFiltradas.add(orden);
+            }
+        }
+        return ordenesFiltradas.toArray(new ModeloOrden[0]);
+    }
+    
     
     // Método para obtener una orden por su índice
     public static ModeloOrden obtenerOrdenPorNumero(int numeroOrden) {

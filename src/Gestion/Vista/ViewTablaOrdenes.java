@@ -27,7 +27,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     }
     
     private void inicializarTabla() {
-    ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenes();
+    ModeloOrden[] ordenes = GestorOrdenes.obtenerTodasLasOrdenesActuales();
     ordenTableModel = new OrdenTableModel(ordenes);
     jTable1.setModel(ordenTableModel);
 
