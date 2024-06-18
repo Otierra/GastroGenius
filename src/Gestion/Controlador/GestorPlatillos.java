@@ -17,7 +17,13 @@ public class GestorPlatillos {
 
     // Método para obtener el array de platillos no vacíos
     public ModeloPlatilloMenu[] obtenerPlatillos() {
-        return platillos;
+        List<ModeloPlatilloMenu> platillosFiltrados = new ArrayList<>();
+        for (ModeloPlatilloMenu platillo : platillos) {
+            if (platillo != null) {
+                platillosFiltrados.add(platillo);
+            }
+        }
+        return platillosFiltrados.toArray(new ModeloPlatilloMenu[0]);
     }
 
     public static ModeloPlatilloMenu[] obtenerPlatillosComida() {
