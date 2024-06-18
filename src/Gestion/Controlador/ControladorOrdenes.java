@@ -13,7 +13,7 @@ public class ControladorOrdenes {
         for (ModeloOrden orden : ordenes) {
             if (orden.getMesaId() == -1) {
                 orden.setMesaId(idMesa);
-                orden.setEstado("Sin Preparar");
+                orden.setEstado("Tomando Orden");
                 break; // Terminamos el ciclo una vez encontramos y actualizamos la primera orden con idMesa == -1
             }
         }

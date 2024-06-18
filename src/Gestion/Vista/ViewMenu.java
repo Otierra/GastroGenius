@@ -88,6 +88,11 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenuCarta);
 
         jMenuReporte.setText("Reporte");
+        jMenuReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuReporteMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenuReporte);
 
         setJMenuBar(jMenuBar1);
@@ -148,6 +153,18 @@ public class ViewMenu extends javax.swing.JFrame {
         
         viewOrdenesTable.setJDesktopPane(jDesktopPane_opiciones);
     }//GEN-LAST:event_jMenuOrdenMouseClicked
+
+    private void jMenuReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuReporteMouseClicked
+        ViewReportes viewReportes = new ViewReportes();
+        jDesktopPane_opiciones.add(viewReportes);
+        Dimension desktopSize = jDesktopPane_opiciones.getSize();
+        Dimension internalFrameSize = viewReportes.getSize();
+        int x = (desktopSize.width - internalFrameSize.width) / 2;
+        int y = (desktopSize.height - internalFrameSize.height) / 2;
+        viewReportes.setLocation(x, y); 
+        viewReportes.setVisible(true);
+       
+    }//GEN-LAST:event_jMenuReporteMouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,10 +1,18 @@
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorReportes;
+import Gestion.Controlador.GestionReporte;
+import Gestion.Modelo.ModeloReporte;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 public class ViewReportes extends javax.swing.JInternalFrame {
 
     public ViewReportes() {
         initComponents();
+        ControladorReportes controller = new ControladorReportes();
+        controller.crearListaReportes();
     }
 
  
@@ -69,6 +77,11 @@ public class ViewReportes extends javax.swing.JInternalFrame {
 
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/lupa (1).png"))); // NOI18N
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel.setText("Ordenes");
@@ -176,6 +189,22 @@ public class ViewReportes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        
+        String fechaInicio = jTextDateFrom.getText();
+        String fechaFin = jTextDateTo.getText();
+                
+        List<ModeloReporte> reportesFiltrados = GestionReporte.obtenerReportesPorRangoFechas(fechaInicio, fechaFin);
+        
+        DefaultTableModel model = (DefaultTableModel) jTableROrdenes.getModel();
+
+        model.setRowCount(0);
+
+        for (ModeloReporte reporte : reportesFiltrados) {
+            model.addRow(new Object[]{reporte.getFecha(), reporte.getIdOrden(), reporte.getPedidos(), reporte.getTotal()});
+        }
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
