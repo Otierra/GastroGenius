@@ -76,16 +76,4 @@ public class ModeloPlatilloMenu {
         this.tiempoDePreparacion = tiempoDePreparacion;
     }
 
-    // Método toString para representación textual del platillo
-    @Override
-    public String toString() {
-        return "PlatilloMenu{" +
-                "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                ", categoria='" + categoria + '\'' +
-                ", esComida=" + esComida +
-                ", tiempoDePreparacion=" + tiempoDePreparacion +
-                '}';
-    }
 }

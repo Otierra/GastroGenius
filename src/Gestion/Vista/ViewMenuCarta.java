@@ -94,6 +94,18 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
         tiempoDePreparacion = jSliderPreparacion.getValue();
     }
     
+    private boolean validarCampos(){
+       if (jTextPlatillo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo de descripción del platillo no puede estar vacío.", "Error de validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    
+        if (jComboBoxCategoria.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una categoría.", "Error de validación", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+            return true;
+        }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -265,17 +277,20 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        obtenerValoresComponentes();
-        ControladorPlatillos controller = new ControladorPlatillos();
         
-        if (esNew){
-            controller.agregarPlatillo(descripcion, precio, categoria, esComida, tiempoDePreparacion);
-        }else{
-            controller.modificarPlatillo(selectedPlatilloId, descripcion, precio, categoria, esComida, tiempoDePreparacion);
-            this.dispose();
-        }
-        
-        resetForm();
+        if(validarCampos()){
+            obtenerValoresComponentes();
+            ControladorPlatillos controller = new ControladorPlatillos();
+
+            if (esNew){
+                controller.agregarPlatillo(descripcion, precio, categoria, esComida, tiempoDePreparacion);
+            }else{
+                controller.modificarPlatillo(selectedPlatilloId, descripcion, precio, categoria, esComida, tiempoDePreparacion);
+                this.dispose();
+            }
+
+            resetForm();
+        }   
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
