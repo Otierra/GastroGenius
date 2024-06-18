@@ -16,7 +16,6 @@ public class ViewPedido extends javax.swing.JInternalFrame {
     private int PedidoID;
     private List<ModeloPedido> pedidos;
     private String platillo;
-    private boolean cancelado;
     private boolean isAgregar;
     private String cambios;
     

@@ -1,5 +1,6 @@
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorCocina;
 import Gestion.Controlador.ControladorOrdenes;
 import Gestion.Modelo.ModeloPedido;
 import Gestion.Modelo.PedidoTableModel;
@@ -61,6 +62,7 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
         jButtonPedidoCancelar = new javax.swing.JButton();
         jButtonPedidoSalir = new javax.swing.JButton();
         jButtonPedidoModificar = new javax.swing.JButton();
+        btnActualizarPedidos = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -117,6 +119,13 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizarPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/actualizar (2).png"))); // NOI18N
+        btnActualizarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarPedidosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,16 +135,21 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(199, 199, 199))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonPedidoModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPedidoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelPedido)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButtonPedidoSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPedidoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonPedidoModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPedidoAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelPedido)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButtonPedidoSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPedidoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActualizarPedidos)))
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -144,12 +158,14 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnActualizarPedidos)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabelPedido)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonPedidoAgregar)
@@ -158,8 +174,8 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonPedidoCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonPedidoSalir)))
-                .addContainerGap())
+                        .addComponent(jButtonPedidoSalir)
+                        .addGap(105, 105, 105))))
         );
 
         pack();
@@ -206,21 +222,29 @@ public class ViewTablePedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPedidoModificarActionPerformed
 
     private void jButtonPedidoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoCancelarActionPerformed
-         int response = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea cancelar el pedido?", "Confirmar Cancelación", JOptionPane.YES_NO_OPTION);
+        int response = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea cancelar el pedido?", "Confirmar Cancelación", JOptionPane.YES_NO_OPTION);
     
         if (response == JOptionPane.YES_OPTION) {
             ControladorOrdenes.cancelarPedidoEnOrden(OrderId, PedidoId);
+            ControladorCocina.eliminarPedido(OrderId,PedidoId);
         } else {
             JOptionPane.showMessageDialog(null, "El pedido no ha sido cancelado.");
         }
+        
+        inicializarTabla();
     }//GEN-LAST:event_jButtonPedidoCancelarActionPerformed
 
     private void jButtonPedidoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonPedidoSalirActionPerformed
 
+    private void btnActualizarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPedidosActionPerformed
+        inicializarTabla();
+    }//GEN-LAST:event_btnActualizarPedidosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarPedidos;
     private javax.swing.JButton jButtonPedidoAgregar;
     private javax.swing.JButton jButtonPedidoCancelar;
     private javax.swing.JButton jButtonPedidoModificar;
