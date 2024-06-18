@@ -256,6 +256,8 @@ public class ViewPedido extends javax.swing.JInternalFrame {
             }else{
                 ControladorCocina.agregarPedidoSinPrepararBebida(OrderID, PedidoID, platillo, tiempo,cambios);
             }
+            
+            jTextAreaCambios.setText("");
         }
         else{
             ControladorOrdenes.modificarPedidoEnOrden(OrderID, PedidoID, platillo, cambios);

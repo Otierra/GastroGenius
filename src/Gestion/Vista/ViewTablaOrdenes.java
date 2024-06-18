@@ -1,5 +1,8 @@
 package Gestion.Vista;
 
+import Gestion.Controlador.ControladorOrdenes;
+import Gestion.Controlador.ControladorPlatillos;
+import Gestion.Controlador.GestorMesas;
 import Gestion.Controlador.GestorOrdenes;
 import Gestion.Modelo.ModeloOrden;
 import Gestion.Modelo.ModeloPedido;
@@ -16,10 +19,13 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     private JDesktopPane jDesktopPane_opiciones;
     private OrdenTableModel ordenTableModel;
     private int OrderId;
+    private int MesaID = -1;
     
     public ViewTablaOrdenes() {
         initComponents();
         inicializarTabla();
+        btnCuentaTable.setEnabled(false);
+        btnVerPedidos.setEnabled(false);
     }
 
     public void setJDesktopPane(JDesktopPane jDesktopPane_opiciones) {
@@ -41,6 +47,10 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                         int idOrden = (int) jTable1.getValueAt(filaSeleccionada, 0); // Suponiendo que la columna 0 contiene el número de orden
                         jLabelOrden.setText("Orden: " + idOrden);
                         OrderId = idOrden;
+                        int idMesa = (int) jTable1.getValueAt(filaSeleccionada, 1);
+                        MesaID = idMesa;
+                        btnCuentaTable.setEnabled(true);
+                        btnVerPedidos.setEnabled(true);
                     }
                 }
             }
@@ -51,7 +61,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCancelar = new javax.swing.JButton();
+        btnCuentaTable = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -64,11 +74,11 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(600, 480));
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/eliminar-producto.png"))); // NOI18N
-        btnCancelar.setText("CUENTA");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCuentaTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gestion/Vista/eliminar-producto.png"))); // NOI18N
+        btnCuentaTable.setText("CUENTA");
+        btnCuentaTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnCuentaTableActionPerformed(evt);
             }
         });
 
@@ -106,7 +116,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCuentaTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVerPedidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabelOrden))
                 .addGap(18, 18, 18)
@@ -132,16 +142,42 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnVerPedidos)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCuentaTable)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    private void btnCuentaTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentaTableActionPerformed
+        if (MesaID != -1) {
+            double total = 0.0;
+            int ordenID = GestorMesas.obtenerOrdenPorMesa(MesaID);
+            java.util.List<ModeloPedido> lst = ControladorOrdenes.obtenerPedidosDeOrden(ordenID);
+            for (ModeloPedido pedido : lst) {
+                String platillo = pedido.getNombrePlatillo();
+                ControladorPlatillos viewController = new ControladorPlatillos();
+                
+                double precioPlatillo = viewController.obtenerPrecioPorNombre(platillo);
+                total += precioPlatillo;
+            }
+            
+            GestorMesas.liberarMesa(MesaID);
+            
+            String mensaje = String.format(
+                "Cuenta mandada e impresora.\nEl total de la mesa %d con orden %d es de un total %.2f",
+                MesaID, ordenID, total
+            );
+
+            // Mostrar el diálogo
+            JOptionPane.showMessageDialog(
+                null, 
+                mensaje, 
+                "Cuenta de la Mesa", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnCuentaTableActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
         ViewTablePedidos viewTablePedidos = new ViewTablePedidos(OrderId);
@@ -160,7 +196,7 @@ public class ViewTablaOrdenes extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCuentaTable;
     private javax.swing.JButton btnVerPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelOrden;
