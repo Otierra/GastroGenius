@@ -25,6 +25,8 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
         }
         
         agregarListenersTablas();
+        jButtonPedidoListo.setEnabled(false);
+        jButtonPedidoPreparacion.setEnabled(false);
     }
 
     // Método para llenar la tabla de pedidos sin preparar
@@ -105,6 +107,9 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     
                     String comentarios = jTableSin.getValueAt(selectedRow, 4).toString();
                     jTextAreaNotas.setText(comentarios);  
+                    
+                    jButtonPedidoListo.setEnabled(true);
+                    jButtonPedidoPreparacion.setEnabled(true);
                 }
             }
         });
@@ -124,7 +129,10 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     jTextCocinaPlatillo.setText(platillo);  
                     
                     String comentarios = jTableTerminado.getValueAt(selectedRow, 4).toString();
-                    jTextAreaNotas.setText(comentarios);  
+                    jTextAreaNotas.setText(comentarios); 
+                    
+                    jButtonPedidoListo.setEnabled(true);
+                    jButtonPedidoPreparacion.setEnabled(true);
                 }
             }
         });
