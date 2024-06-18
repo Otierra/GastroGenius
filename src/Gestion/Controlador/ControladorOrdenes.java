@@ -14,7 +14,7 @@ public class ControladorOrdenes {
             if (orden.getMesaId() == -1) {
                 orden.setMesaId(idMesa);
                 orden.setEstado("Tomando Orden");
-                break; // Terminamos el ciclo una vez encontramos y actualizamos la primera orden con idMesa == -1
+                break; 
             }
         }
     }
@@ -24,7 +24,7 @@ public class ControladorOrdenes {
         for (ModeloOrden orden : ordenes) {
             if (orden.getMesaId() == -1) {
                 orden.setEstado("Sin Preparar");
-                break; // Terminamos el ciclo una vez encontramos y actualizamos la primera orden con idMesa == -1
+                break; 
             }
         }
     }
@@ -37,7 +37,7 @@ public class ControladorOrdenes {
                 return orden.getNumeroOrden();
             }
         }
-        return -1; // Si no se encuentra ninguna orden en estado "Tomando Orden" para la mesa especificada
+        return -1; 
     }
     
     public static List<ModeloPedido> obtenerPedidosDeOrden(int numeroOrden) {

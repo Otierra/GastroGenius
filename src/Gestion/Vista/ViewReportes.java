@@ -189,7 +189,7 @@ public class ViewReportes extends javax.swing.JInternalFrame {
         jTableROrdenes.setModel(model);
         jTextTotal.setText(Double.toString(total));
 
-        // Añadir listener para la selección de filas
+        
         jTableROrdenes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableROrdenes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
