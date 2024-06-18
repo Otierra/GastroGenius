@@ -108,7 +108,7 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     String comentarios = jTableSin.getValueAt(selectedRow, 4).toString();
                     jTextAreaNotas.setText(comentarios);  
                     
-                    jButtonPedidoListo.setEnabled(true);
+                    jButtonPedidoListo.setEnabled(false);
                     jButtonPedidoPreparacion.setEnabled(true);
                 }
             }
@@ -132,7 +132,7 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
                     jTextAreaNotas.setText(comentarios); 
                     
                     jButtonPedidoListo.setEnabled(true);
-                    jButtonPedidoPreparacion.setEnabled(true);
+                    jButtonPedidoPreparacion.setEnabled(false);
                 }
             }
         });
@@ -351,6 +351,13 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
         }
         
         ControladorOrdenes.buscarYModificarEstadoPedido(OrderID,PlatilloID,"Preparandose");
+        
+        
+        jTextCocinaIDPedido.setText("");
+        jTextCocinaOrden.setText("");
+        jTextCocinaPlatillo.setText("");
+        jButtonPedidoListo.setEnabled(false);
+        jButtonPedidoPreparacion.setEnabled(false);
     }//GEN-LAST:event_jButtonPedidoPreparacionActionPerformed
 
     private void jButtonPedidoListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedidoListoActionPerformed
@@ -368,6 +375,12 @@ public class ViewTableCocina extends javax.swing.JInternalFrame {
             llenarTablaPedidosSinPreparar(false);
             llenarTablaPedidosEnPreparacion(false);
         }
+        
+        jTextCocinaIDPedido.setText("");
+        jTextCocinaOrden.setText("");
+        jTextCocinaPlatillo.setText("");
+        jButtonPedidoListo.setEnabled(false);
+        jButtonPedidoPreparacion.setEnabled(false);
     }//GEN-LAST:event_jButtonPedidoListoActionPerformed
 
     private void jRadioButtonCocinaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCocinaComidaActionPerformed

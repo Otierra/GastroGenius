@@ -36,6 +36,15 @@ public class ViewMenuCarta extends javax.swing.JInternalFrame {
             jSliderPrecio.setValue((int) platillo.getPrecio());
             jSliderPreparacion.setValue(platillo.getTiempoDePreparacion()); // Establecer el valor del JSlider para la preparación
             jTextPlatillo.setText(platillo.getDescripcion()); // Establecer el texto del platillo
+            if(platillo.isEsComida()){
+                jRadioButtonComida.setSelected(true);
+                jRadioButtonBebida.setSelected(false);
+                imageTipo.setIcon(new ImageIcon(getClass().getResource("/Gestion/Vista/supermercado.png")));              
+            }else{
+                jRadioButtonComida.setSelected(false);
+                jRadioButtonBebida.setSelected(true);
+                imageTipo.setIcon(new ImageIcon(getClass().getResource("/Gestion/Vista/jugo.png")));
+            }
             String categoria = platillo.getCategoria();
             for (int i = 0; i < jComboBoxCategoria.getItemCount(); i++) {
                 if (jComboBoxCategoria.getItemAt(i).equals(categoria)) {
