@@ -6,8 +6,8 @@ package Gestion.Modelo;
 
 /**
  *
- * @author zaidp
+ * @author alexv
  */
-public class Inventario {
+public class ModeloReporte {
     
 }

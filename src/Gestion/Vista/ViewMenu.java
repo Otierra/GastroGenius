@@ -34,6 +34,7 @@ public class ViewMenu extends javax.swing.JFrame {
         jMenuOrden = new javax.swing.JMenu();
         jMenuCocina = new javax.swing.JMenu();
         jMenuCarta = new javax.swing.JMenu();
+        jMenuReporte = new javax.swing.JMenu();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -85,6 +86,9 @@ public class ViewMenu extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenuCarta);
+
+        jMenuReporte.setText("Reporte");
+        jMenuBar1.add(jMenuReporte);
 
         setJMenuBar(jMenuBar1);
 
@@ -173,6 +177,7 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuCocina;
     private javax.swing.JMenu jMenuMesa;
     private javax.swing.JMenu jMenuOrden;
+    private javax.swing.JMenu jMenuReporte;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
